@@ -1,0 +1,1308 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: inventoryCtrl
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 9fb4a6b8fc335de409cc9dfae6e97ea3,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: clickPanel
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.size
+    value: 16
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[0]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[1]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[2]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[3]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[4]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[5]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[6]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[7]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[8]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[9]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[10]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[11]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[12]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[13]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[14]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: images.Array.data[15]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.size
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[0]
+    value: 
+    objectReference: {fileID: 21300000, guid: 8b724dc6b68aba443a6d6f39e36bfc93, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[1]
+    value: 
+    objectReference: {fileID: 21300000, guid: d284f717371a52247b345118f8784575, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[2]
+    value: 
+    objectReference: {fileID: 21300000, guid: 386aa5710cc777c4993816aa41f8b6b1, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[3]
+    value: 
+    objectReference: {fileID: 21300000, guid: 9815aa44b836886438d3cfec05193259, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[4]
+    value: 
+    objectReference: {fileID: 21300000, guid: a9a0a1a6bc5dfbe4ebbc1e362db5edda, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[5]
+    value: 
+    objectReference: {fileID: 21300000, guid: 58d56e7412a6b5c49be40abd25224717, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[6]
+    value: 
+    objectReference: {fileID: 21300000, guid: 403bb69dd428b6447bbff5ea1375ead1, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[7]
+    value: 
+    objectReference: {fileID: 21300000, guid: 28c88c0709581fc4c9ae9a3266cc8bc4, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[8]
+    value: 
+    objectReference: {fileID: 21300000, guid: e6a3aade3ff6e5a49862a82357223f55, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[9]
+    value: 
+    objectReference: {fileID: 21300000, guid: 5e03aadde9597f94094f3bdd93b8c064, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[10]
+    value: 
+    objectReference: {fileID: 21300000, guid: a3e7ee7247f7f13418b3497fdfe16d18, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[11]
+    value: 
+    objectReference: {fileID: 21300000, guid: 2af76296bdda13f41badf48818d5d783, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[12]
+    value: 
+    objectReference: {fileID: 21300000, guid: d49259c1726a6624793f83d38282a0ed, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[13]
+    value: 
+    objectReference: {fileID: 21300000, guid: 4af54872a393205498a666bf919dbbbc, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[14]
+    value: 
+    objectReference: {fileID: 21300000, guid: dcf2a4ccc4a55fc4e8907d85fe1f276e, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[15]
+    value: 
+    objectReference: {fileID: 21300000, guid: a4a78c9fe4818f54eb4c114ef9785d13, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[16]
+    value: 
+    objectReference: {fileID: 21300000, guid: 7d06177b48a29894585d8b5f80927319, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[17]
+    value: 
+    objectReference: {fileID: 21300000, guid: f6fcd7a88275f7841ae35b6f31234423, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[18]
+    value: 
+    objectReference: {fileID: 21300000, guid: 9838ce151e890b64088d3e58fef3747c, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sprites.Array.data[19]
+    value: 
+    objectReference: {fileID: 21300000, guid: 555c02627354e3a4ebdc9cb8ed27a6ec, type: 3}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.size
+    value: 16
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[0]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[1]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[2]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[3]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[4]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[5]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[6]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[7]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[8]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[9]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[10]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[11]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[12]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[13]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[14]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: texts.Array.data[15]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: itemClickedId
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: invClickedId
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inHandImg
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: isEnabled
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inventory
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.size
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[0].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[0].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[0].exp
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[0].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[0].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[0].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[0].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[0].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[0].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[1].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[1].health
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[1].exp
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[1].eat
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[1].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[1].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[1].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[1].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[1].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[2].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[2].health
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[2].exp
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[2].eat
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[2].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[2].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[2].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[2].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[2].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[3].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[3].health
+    value: -10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[3].exp
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[3].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[3].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[3].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[3].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[3].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[3].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[4].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[4].health
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[4].exp
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[4].eat
+    value: 7
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[4].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[4].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[4].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[4].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[4].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[5].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[5].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[5].exp
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[5].eat
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[5].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[5].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[5].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[5].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[5].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[6].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[6].health
+    value: -15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[6].exp
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[6].eat
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[6].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[6].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[6].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[6].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[6].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[7].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[7].health
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[7].exp
+    value: 50
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[7].eat
+    value: 75
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[7].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[7].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[7].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[7].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[7].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[8].water
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[8].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[8].exp
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[8].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[8].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[8].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[8].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[8].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[8].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[9].water
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[9].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[9].exp
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[9].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[9].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[9].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[9].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[9].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[9].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[10].water
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[10].health
+    value: -5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[10].exp
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[10].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[10].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[10].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[10].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[10].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[10].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[11].water
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[11].health
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[11].exp
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[11].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[11].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[11].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[11].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[11].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[11].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[12].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[12].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[12].exp
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[12].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[12].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[12].type
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[12].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[12].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[12].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[13].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[13].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[13].exp
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[13].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[13].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[13].type
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[13].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[13].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[13].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[14].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[14].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[14].exp
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[14].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[14].flip
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[14].type
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[14].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[14].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[14].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[15].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[15].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[15].exp
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[15].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[15].flip
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[15].type
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[15].weapid
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[15].name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[15].descr
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[16].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[16].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[16].exp
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[16].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[16].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[16].type
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[16].weapid
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[16].name
+    value: AK47
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[16].descr
+    value: "\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u0431"
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[17].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[17].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[17].exp
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[17].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[17].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[17].type
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[17].weapid
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[17].name
+    value: "\u041F\u0438\u0441\u0442\u043E\u043B\u0435\u0442"
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[17].descr
+    value: "\u0421\u0442\u0440\u0435\u043B\u044F\u0442\u044A \u043C\u043E\u0436\u043D\u043E."
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[18].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[18].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[18].exp
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[18].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[18].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[18].type
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[18].weapid
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[18].name
+    value: "\u041B\u0430\u0437\u0435\u0440"
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[18].descr
+    value: "\u0414\u0435\u0440\u0435\u0432\u0435\u043D\u044C\u043A\u0430 \u0432\u044B\u0431\u0438\u0442\u0438"
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[19].water
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[19].health
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[19].exp
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[19].eat
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[19].flip
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[19].type
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[19].weapid
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[19].name
+    value: DD29
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: structs.Array.data[19].descr
+    value: "\u041F\u043B\u0430\u0437\u043C\u0435\u043D\u043D\u0430\u044F \u0448\u0442\u0443\u0440\u043C\u043E\u0432\u0430\u044F
+      \u0432\u0438\u043D\u0442\u043E\u0432\u043A\u0430."
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.size
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[0]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[1]
+    value: 
+    objectReference: {fileID: 6177138496306451988, guid: afebf1f6be33c004c832821589f39e51,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[2]
+    value: 
+    objectReference: {fileID: 2627690709806400919, guid: da5b6a23f6e717947b9e341ce509a546,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[3]
+    value: 
+    objectReference: {fileID: 869572097986944394, guid: b95bcc14ef05e5d41883903d0c89a660,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[4]
+    value: 
+    objectReference: {fileID: 8095798365567324264, guid: a13b3db0b4adcef49a14a2431375dc77,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[5]
+    value: 
+    objectReference: {fileID: 1587450938121320256, guid: 3b11924d26937344db4713ed9129a315,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[6]
+    value: 
+    objectReference: {fileID: 2163422601375419858, guid: e02dd1f7157430242b33a51987611396,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[7]
+    value: 
+    objectReference: {fileID: 349965583852037061, guid: 2d205cb139d85d14f8f0db651f0f9349,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[8]
+    value: 
+    objectReference: {fileID: 7861653626819858256, guid: 2ec9ba6bc4dbf8045be8ad691030b45a,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[9]
+    value: 
+    objectReference: {fileID: 7312893648059071663, guid: 6331a55b12de24b499847aa3b00d0dec,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[10]
+    value: 
+    objectReference: {fileID: 138408968680260915, guid: 1a64f381171ead74a932f4bec6ec2f26,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[11]
+    value: 
+    objectReference: {fileID: 3824655907267862064, guid: 3631ade5398247a448aa70798cd0ac4b,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[12]
+    value: 
+    objectReference: {fileID: 8153904921934506751, guid: 2386f5574d4f34e42980a38af3c7e69e,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[13]
+    value: 
+    objectReference: {fileID: 3813668338219974371, guid: 61d3f17284b866f4486e2df1441296b6,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[14]
+    value: 
+    objectReference: {fileID: 733686166198529686, guid: 9aeb3df3153d920439a47cbe7298b69a,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[15]
+    value: 
+    objectReference: {fileID: 1123727899201903621, guid: d479b02c7ff628946a4addf2a23ecc17,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[16]
+    value: 
+    objectReference: {fileID: 8543916250089953161, guid: 4a0d99e40562a0a48a782d7d0b8c51cf,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[17]
+    value: 
+    objectReference: {fileID: 3833645634953988704, guid: 6e1d19c07eef82b408a58e795d0f2653,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[18]
+    value: 
+    objectReference: {fileID: 711735740896233971, guid: 6c137f99292843b448462caf29121eda,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: prefabs.Array.data[19]
+    value: 
+    objectReference: {fileID: 3845295375341443758, guid: ed2f094f67c8e3a49aa30bc4db5c6d84,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.size
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[0].shootDelay
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[0].reloadSpeed
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[0].bullet
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[0].mag
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[0].sprite.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[0].sprite.Array.data[0]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[0].ammo.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].shootDelay
+    value: 0.1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].reloadSpeed
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].bullet
+    value: 
+    objectReference: {fileID: 5867315833357736428, guid: b6aeb2fcb8230d74b8733009e2c4c9b2,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].mag
+    value: 
+    objectReference: {fileID: 9051606923160082497, guid: a610c2bcc99ad894087040d4aa4e4bf6,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].sprite.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].sprite.Array.data[0]
+    value: 
+    objectReference: {fileID: 21300000, guid: 3270a03aa1e804b4eac90255f2deb51e, type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].sprite.Array.data[1]
+    value: 
+    objectReference: {fileID: 21300000, guid: 7d06177b48a29894585d8b5f80927319, type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].ammo.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].ammo.Array.data[0]
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[1].ammo.Array.data[1]
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].shootDelay
+    value: 0.4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].reloadSpeed
+    value: 1.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].bullet
+    value: 
+    objectReference: {fileID: 5867315833357736428, guid: b6aeb2fcb8230d74b8733009e2c4c9b2,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].mag
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].sprite.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].sprite.Array.data[0]
+    value: 
+    objectReference: {fileID: 21300000, guid: f6fcd7a88275f7841ae35b6f31234423, type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].sprite.Array.data[1]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].ammo.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].ammo.Array.data[0]
+    value: 7
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[2].ammo.Array.data[1]
+    value: 7
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].shootDelay
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].reloadSpeed
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].bullet
+    value: 
+    objectReference: {fileID: 6971229221476087258, guid: 12307dbb948a161469c51d775698cd36,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].mag
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].sprite.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].sprite.Array.data[0]
+    value: 
+    objectReference: {fileID: 21300000, guid: 9838ce151e890b64088d3e58fef3747c, type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].sprite.Array.data[1]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].ammo.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].ammo.Array.data[0]
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[3].ammo.Array.data[1]
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].shootDelay
+    value: 0.2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].reloadSpeed
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].bullet
+    value: 
+    objectReference: {fileID: 9026449555214052837, guid: 8cc03c271d58b9a448a459f73f221347,
+      type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].mag
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].sprite.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].sprite.Array.data[0]
+    value: 
+    objectReference: {fileID: 21300000, guid: 555c02627354e3a4ebdc9cb8ed27a6ec, type: 3}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].sprite.Array.data[1]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].ammo.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].ammo.Array.data[0]
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: weapons.Array.data[4].ammo.Array.data[1]
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: withWeapon
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ctrl
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: inHandWeapon
+    value: 
+    objectReference: {fileID: 0}
