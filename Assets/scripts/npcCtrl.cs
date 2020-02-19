@@ -149,6 +149,10 @@ public class npcCtrl : hpBase
     public override void addHit(int hit) {
         hp -= hit;
         fxHub.me.EjectHitText(hit,transform.position);
+        if (hp <= -100) {
+            fxHub.GiveMeBloodyExplosion(transform.position);
+            SilentDeath();
+        }
         rb.AddForce((transform.position - characterctrl.me.position).normalized * 10 * characterctrl.meleForce);
         StartCoroutine(Stoping());
         if (characterctrl.meleForce > 50) {
@@ -225,7 +229,7 @@ public class npcCtrl : hpBase
         if (!bornByScript)
             MasterPool.InsertNpc(gameObject);
         else
-            Destroy(gameObject,2f);
+            Destroy(gameObject);
         //this.enabled = false;
     }
     public IEnumerator stun() {

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class fxHub : MonoBehaviour
 {
     public ParticleSystem[] particlesForInit;
+    [SerializeField]
+    private Transform[] transforms;
     public static ParticleSystem blood;
     public static Transform bloodTrns;
     public Text[] hitTexts;
@@ -50,11 +52,18 @@ public class fxHub : MonoBehaviour
         }
         defCamPosition = camTrns.localPosition;
         shake = true;
+        for (int i = 0; i < particlesForInit.Length; i++) {
+            transforms[i] = particlesForInit[i].transform;
+        }
     }
     public static void GiveMeBlood (Vector3 pos) {
         bloodTrns.position = pos;
         blood.Play();
 
+    }
+    public static void GiveMeBloodyExplosion (Vector3 pos) {
+        me.transforms[1].position = pos;
+        me.particlesForInit[1].Play();
     }
     public void EjectHitText (int hit,Vector3 pos) {
         hitTexts[hitCounter].text = hit.ToString();
