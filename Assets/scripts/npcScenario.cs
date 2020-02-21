@@ -15,6 +15,7 @@ public class npcScenario : MonoBehaviour
     private bool state; //Смотрит вперед(true)/в сторону(false)
     [SerializeField]
     private GameObject defNpc;
+    [SerializeField]
     private GameObject myText;
     private GameObject TextGameObjectInstance;
     private Text TextInstance;
@@ -22,12 +23,20 @@ public class npcScenario : MonoBehaviour
     [SerializeField]
     private bool right = true;
     private Vector3 startScale;
+    [SerializeField] [TextArea]
+    private string greetings;
+    [SerializeField]
+    private talkCtrl talker;
+    private bool saidGreetings;
 
     void Start()
     {
         startScale = transform.localScale;
         playerTrns = characterctrl.me;
         StartCoroutine(myUpdate());
+        TextGameObjectInstance = Instantiate(myText,new Vector3(transform.position.x,transform.position.y + 2,transform.position.z),Quaternion.identity,characterctrl.it.worldCanvas);
+        TextInstance = TextGameObjectInstance.GetComponent<Text>();
+        talker.said = TextInstance;
     }
 
     IEnumerator myUpdate () {
@@ -53,6 +62,7 @@ public class npcScenario : MonoBehaviour
                    if (Mathf.Abs(playerTrns.position.x - transform.position.x) <= maxApproximationDistance) {
                         if (state) {
                             state = false;
+                            sayGreetings();
                             myBodys[0].SetActive(!state);
                             myBodys[1].SetActive(state);
                         }
@@ -63,6 +73,7 @@ public class npcScenario : MonoBehaviour
                         state = true;
                         myBodys[0].SetActive(!state);
                         myBodys[1].SetActive(state);
+                        talker.Shutdown();
                    }
                }
             #endregion
@@ -72,5 +83,9 @@ public class npcScenario : MonoBehaviour
         if (TextGameObjectInstance != null) {
             Destroy(TextGameObjectInstance,3f);
         }
+    }
+    void sayGreetings () {
+        Debug.Log("said");
+        talker.SayThis(greetings);
     }
 }

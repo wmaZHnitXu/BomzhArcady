@@ -11,32 +11,20 @@ public class bulletCtrl : MonoBehaviour
     public bool forPlayer = true;
     private int targLayer = 12;
     public byte hit = 2;
-    public npcCtrl c;
+    public bool right;
     public bool laser;
     public ChildRbInfo cri;
+    [SerializeField]
+    private SpriteRenderer bulletRenderer;
+    [SerializeField]
+    private bool needRenderDelay;
 
     void Start () {
-        if (c == null) {
-            if (!characterctrl.rotation) {
-                v.x = -speed;
-            }
-            else
-                v.x = speed;
-        }
-        else {
-            if (c.right) {
-                v.x = speed;
-            }
-            else {
-                v.x = -speed;
-            }
-        }
-        if (forPlayer) {
-            targLayer = 12;
-        }
-        else {
-            targLayer = 13;
-        }
+        if (!forPlayer)
+            v.x = characterctrl.rotation ? speed : -speed;
+        else
+            v.x = right ? speed : -speed;
+        targLayer = forPlayer ? 12 : 13;
         if (!laser) {
         shell.SetParent(null);
         bullet.SetParent(null);
@@ -46,6 +34,8 @@ public class bulletCtrl : MonoBehaviour
         Destroy(gameObject,3.5f);
         cri.loaded = true;
         cri.isLaser = laser;
+        if (needRenderDelay)
+            StartCoroutine(startRender());
     }
     void FixedUpdate()
     {
@@ -74,5 +64,10 @@ public class bulletCtrl : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+    IEnumerator startRender () {
+        bulletRenderer.enabled = false;
+        yield return new WaitForSeconds(0.06f);
+        bulletRenderer.enabled = true;
     }
 }

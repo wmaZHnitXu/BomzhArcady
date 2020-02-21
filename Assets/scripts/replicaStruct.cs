@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public struct replicaStruct
 {
+   [TextArea]
    public string repl;
    public int answerCode;
    public bool cascade; //После нее без паузы идет следующая

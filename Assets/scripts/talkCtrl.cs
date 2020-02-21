@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class talkCtrl : MonoBehaviour
 {
     public static GameObject talkCanv;
-    [SerializeField]
-    private Text said;
+    public Text said;
     [SerializeField]
     public static Text[] allAnswTexts;
     public answerStruct[] answers;
@@ -17,23 +16,24 @@ public class talkCtrl : MonoBehaviour
     public int replId;
     private char[] charray;
     private static characterctrl c;
-    private bool touched;
-    void OnMouseDown () {
-        touched = true;
-    }
-    void OnMouseUp () {
-        if (touched) {
-            replId = 0;
-            if (talkCanv == null) {
-                c = characterctrl.it;
-                talkCanv = c.answerObj;
-                allAnswTexts = c.answerTexts;
-            }
-            c.talker = this;
-            NextTalking();
+    [SerializeField]
+    private GameObject talkButton;
+    public static GameObject[] textObjects = new GameObject[4];
+    public void StartDialog () {
+        replId = 0;
+        if (talkCanv == null) {
+            c = characterctrl.it;
+            talkCanv = c.answerObj;
+            allAnswTexts = c.answerTexts;
         }
-        touched = false;
+        c.talker = this;
+        SetActiveButton(false);
+        for (int i = 0; i < allAnswTexts.Length; i++) {
+            textObjects[i] = allAnswTexts[i].gameObject;
+        }
+        NextTalking();
     }
+    
     void NextTalking () {
         StopAllCoroutines();
         talkCanv.SetActive(true);
@@ -47,35 +47,76 @@ public class talkCtrl : MonoBehaviour
     }
     public void Answer () {
         if (c.answerNumber < answerCount) {
-        System.Array.Reverse(answers[repliki[replId].answerCode].nextReplCode);
+        //System.Array.Reverse(answers[repliki[replId].answerCode].nextReplCode);
         replId = answers[repliki[replId].answerCode].nextReplCode[c.answerNumber];
-        System.Array.Reverse(answers[repliki[replId].answerCode].nextReplCode);
+        Debug.Log(replId.ToString());
+        //System.Array.Reverse(answers[repliki[replId].answerCode].nextReplCode);
         Debug.Log(c.answerNumber);
         NextTalking();
         }
     }
-    public IEnumerator LoadRepl () {
+    IEnumerator LoadRepl () {
+        foreach (GameObject g in textObjects) {
+            g.SetActive(false);
+        }
         charray = repliki[replId].repl.ToCharArray();
         said.text = string.Empty;
         foreach (char c in charray) {
-        said.text += c;
-        yield return new WaitForSeconds(0.05f);
+            said.text += c;
+            yield return new WaitForSeconds((c == '!' || c == '.' || c == ',' || c == '?') ? 0.3f : 0.05f);
+        }
+        foreach (GameObject g in textObjects) {
+            g.SetActive(true);
         }
         if (repliki[replId].answerCode != 0) {
             answerCount = answers[repliki[replId].answerCode].answer.Length;
             inverse.AddRange(answers[repliki[replId].answerCode].answer);
             inverse.Reverse();
             for (int i = answerCount-1; i+1 != 0; i--) {
-            allAnswTexts[i].text = inverse[i];
+                allAnswTexts[i].text = inverse[i];
+                if (allAnswTexts[i].text == string.Empty)
+                    textObjects[i].SetActive(false);
             }
         }
         else {
-            yield return new WaitForSeconds(1f);
-            StopDialog();
+            if (!repliki[replId].cascade) {
+                yield return new WaitForSeconds(1f);
+                StopDialog();
+            }
+            else {
+                replId = repliki[replId].nextReplCode; //Аккуратненько, а то будет стековерфлоу.
+                StartCoroutine(LoadRepl());
+            }
         }
     }
+    IEnumerator LoadRepl (string text) {
+        charray = text.ToCharArray();
+        said.text = string.Empty;
+        foreach (char c in charray) {
+        said.text += c;
+        yield return new WaitForSeconds((c == '!' || c == '.' || c == ',' || c == '?') ? 0.3f : 0.05f);
+        }
+        yield return new WaitForSeconds(1.3f);
+        StopDialog();
+    }
+    
     public void StopDialog () {
-        talkCanv.SetActive(false);
+        SetActiveButton(true);
+        if (talkCanv != null) //Если greetings, то он еще не инициализирован
+            talkCanv.SetActive(false);
+        said.text = string.Empty;
+    }
+    public void SayThis (string text) {
+        StartCoroutine(LoadRepl(text));
+    }
+    public void SetActiveButton (bool active) {
+        talkButton.SetActive(active);
+    }
+    public void Shutdown () {
+        StopAllCoroutines();
+        if (talkCanv != null)
+            talkCanv.SetActive(false);
+        SetActiveButton(false);
         said.text = string.Empty;
     }
 }

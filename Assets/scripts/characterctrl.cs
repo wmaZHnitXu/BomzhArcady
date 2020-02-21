@@ -116,6 +116,7 @@ public class characterctrl : MonoBehaviour
     private bool _inBox;
     public UnityEvent detachAllNpcs;
     public bool busy;
+    public Transform worldCanvas;
     public bool inBox {
         get {
             return _inBox;

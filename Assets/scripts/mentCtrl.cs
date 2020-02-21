@@ -52,7 +52,7 @@ public class mentCtrl : npcCtrl
         if (Quaternion.Angle(armTrns.rotation,handRot) < 0.1f) {
             if (reloaded) {
                 if (canShoot) {
-                    Instantiate(bullet,weaponPos.position,weaponPos.rotation,weaponPos).GetComponent<bulletCtrl>().c = this;
+                    Instantiate(bullet,weaponPos.position,weaponPos.rotation,weaponPos).GetComponent<bulletCtrl>().right = this.right;
                     StartCoroutine(AttackCd());
                     ammo[0]--;
                 }
