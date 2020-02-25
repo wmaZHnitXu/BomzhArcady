@@ -7,12 +7,21 @@ public struct stage {
 }
 public class quest : MonoBehaviour
 {
-    public string questName;
     public stage[] stages;
-    public void NextStage () {
-
+    private int _stage;
+    public int stage {
+        get {
+            return _stage;
+        }
+        set {
+            _stage = value;
+        }
     }
-    public void Complete () {
-        
+    private scenarioCtrl _scenarioCtrl;
+    void Start () {
+        _scenarioCtrl = scenarioCtrl.me;
+    }
+    public virtual void dialogCallback (int Id) {
+
     }
 }

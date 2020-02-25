@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class questPanCtrl : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class questPanCtrl : MonoBehaviour
     private Animator text;
     [SerializeField]
     private Animator pan;
+    private Text description;
     void OnMouseDown () {
         pan.SetBool("on",true);
         text.SetBool("on",true);
@@ -22,6 +24,10 @@ public class questPanCtrl : MonoBehaviour
         OnMouseUp();
     }
     public void qs () {
+        StartCoroutine(quickShow());
+    }
+    public void SetQuestDesc (string desc) {
+        description.text = desc; 
         StartCoroutine(quickShow());
     }
 }

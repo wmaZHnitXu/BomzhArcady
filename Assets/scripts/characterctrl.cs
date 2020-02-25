@@ -128,6 +128,10 @@ public class characterctrl : MonoBehaviour
             }
         }
     }
+    [SerializeField]
+    private ParticleSystem brakeParticles;
+    [SerializeField]
+    private bool brake;
 
 
     void Awake()
@@ -259,7 +263,10 @@ public class characterctrl : MonoBehaviour
 
         }
         if (rb.velocity.magnitude > 100f) {
-            fxHub.me.ShakeMe(rb.velocity.magnitude / 5000);
+            fxHub.me.ShakeMe(rb.velocity.magnitude / 5000); //Тряска
+        }
+        if (Mathf.Abs(rb.velocity.x) > speed * 2f & !brake) { //Тормоза эпичные
+            StartCoroutine(braking());
         }
     }
     void switchAnim (bool s) {
@@ -404,6 +411,22 @@ public class characterctrl : MonoBehaviour
             stopped = false;
         }
     }
+    IEnumerator braking () {
+        brake = true;
+        while (Mathf.Abs(rb.velocity.x) > speed * 2f) {
+            rb.velocity = new Vector2(rb.velocity.x * 0.9f,0);
+            transform.rotation = Quaternion.Euler(0,0,rb.velocity.x);
+            brakeParticles.Play();
+            fxHub.me.ShakeMe(rb.velocity.x * 0.005f);
+            yield return new WaitForFixedUpdate();
+        }
+        brakeParticles.Play();
+        while (transform.rotation.eulerAngles.z != 0) {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.identity,0.05f);
+            yield return new WaitForFixedUpdate();
+        }
+        brake = false;
+    }
     void SpawnRandomNpc () {
         index = Random.Range(0,npcSpawnPos.Length);
         MasterPool.EjectNpc(npcSpawnPos[index] + transform.position);
@@ -421,19 +444,19 @@ public class characterctrl : MonoBehaviour
         return false;
     }
     public void switchSiting (bool b) {
-            StopAllCoroutines();
-            StartCoroutine(SvoistvaIteration());
-            nogiColl.enabled = !b;
-            nogiObjs[0].SetActive(!b);
-            nogiObjs[1].SetActive(b);
-            siting = b;
-            Debug.Log("bebra");
-            if (b) {
-                speed = speed / 2;
-            }
-            else {
-                speed = speed * 2;
-            }
+        StopAllCoroutines();
+        StartCoroutine(SvoistvaIteration());
+        nogiColl.enabled = !b;
+        nogiObjs[0].SetActive(!b);
+        nogiObjs[1].SetActive(b);
+        siting = b;
+        Debug.Log("bebra");
+        if (b) {
+            speed = speed / 2;
+        }
+        else {
+            speed = speed * 2;
+        }
     }
     public void Boost(Vector2 bst) {
         rb.AddForce(bst);
@@ -473,6 +496,7 @@ public class characterctrl : MonoBehaviour
         gameObject.layer = 12;
         dead = false;
         StartCoroutine(SvoistvaIteration());
+        brakeParticles.Stop();
     }
     public void GetInTransport () {
         rb.simulated = false;

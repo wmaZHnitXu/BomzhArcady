@@ -129,6 +129,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -274,7 +275,7 @@ MonoBehaviour:
   reloaded: 0
   run: 0
   reloadTime: 2
-  punch: 5
+  punch: 55
   attackAnim: {fileID: 8516038684703150475}
   kickPos: {fileID: 8516038683578254005}
   canIdti: 0
@@ -301,6 +302,7 @@ MonoBehaviour:
   courage: 20
   dead: 0
   wlPlus: 10
+  bornByScript: 0
 --- !u!1 &8516038684703150472
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +349,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -447,6 +450,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -508,11 +512,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8516038684366962322}
     m_Modifications:
-    - target: {fileID: 8128015929576827059, guid: c46b2f837f404184db27fdfdbb3fdc31,
-        type: 3}
-      propertyPath: m_Name
-      value: HitParticles
-      objectReference: {fileID: 0}
     - target: {fileID: 8128015929576827058, guid: c46b2f837f404184db27fdfdbb3fdc31,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -567,6 +566,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8128015929576827059, guid: c46b2f837f404184db27fdfdbb3fdc31,
+        type: 3}
+      propertyPath: m_Name
+      value: HitParticles
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46b2f837f404184db27fdfdbb3fdc31, type: 3}

@@ -4,24 +4,16 @@ using UnityEngine;
 
 public class scenarioCtrl : MonoBehaviour
 {
-    private int _stage;
-    public int stage {
-        get {
-            return _stage;
-        }
-        set {
-            _stage = value;
-        }
-    }
+    public string questName;
     public bool[] scenarioData;
     public static scenarioCtrl me;
-    void Start()
-    {
-        me = this;
-    }
+    public quest questContainer;
+    [SerializeField]
+    private questPanCtrl panel;
+    public void NextStage () {
 
-    void Update()
-    {
+    }
+    public void Complete () {
         
     }
 }

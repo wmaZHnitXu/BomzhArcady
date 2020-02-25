@@ -20,6 +20,7 @@ public class npcCtrl : hpBase
     protected float dist;
     public Animator[] forIdem;
     public bool attack;
+    public bool realisticPunchForce;
     public bool reloaded;
     public bool run;
     public float reloadTime;
@@ -53,6 +54,7 @@ public class npcCtrl : hpBase
     public byte wlPlus = 5;
     private UnityAction detachMe;
     public bool bornByScript;
+    //Все настолько нанотеч, что у меня есть пул для нпс, но нет пула для пуль.
     protected void Awake () { //Не допускать мертворождение(слой меняется во время смерти)
         myLayer = gameObject.layer;
         Scale = transform.localScale;
@@ -135,7 +137,7 @@ public class npcCtrl : hpBase
         }
         UpdatePlus();
     }
-    protected virtual void IdemSwitch (bool b) {
+    protected virtual void IdemSwitch (bool b) { //Анимация ходьбы вкл/выкл
         if (idet != b) {
             if (hasForwardFacing & b) {
                 toSide();
@@ -146,7 +148,7 @@ public class npcCtrl : hpBase
             idet = b;
         }
     }
-    public override void addHit(int hit) {
+    public override void addHit(int hit) { //Получение урона.
         hp -= hit;
         fxHub.me.EjectHitText(hit,transform.position);
         if (hp <= -100) {
@@ -171,11 +173,11 @@ public class npcCtrl : hpBase
             death();
         }
     }
-    public override void addHit(int hit, Vector3 punchPos) {
+    public override void addHit(int hit, Vector3 punchPos) { //Перегрузка метода сверху, благодаря которй нпс может отлетать в нужном направлении.
         addHit(hit);
         rb.AddForce((transform.position - punchPos).normalized * hit * 30);
     }
-    public virtual void Attacking () {
+    public virtual void Attacking () { //Этот и последующие три метода отвечают за атаку, и там все страшно.
         Debug.Log("Я бью ребенка (C) " + gameObject.name);
         if (reloaded) {
             reloaded = false;
@@ -199,7 +201,7 @@ public class npcCtrl : hpBase
             characterctrl.health -= punch;
             characterctrl.it.addHit();
             if (kickPos != null)
-                characterctrl.rb.AddForce((destination.position - kickPos.position).normalized * 100);
+                characterctrl.rb.AddForce(realisticPunchForce ? (destination.position - transform.position).normalized * 10 * punch : new Vector3((destination.position.x - transform.position.x > 0 ? punch : -punch) * 100 ,0,0));
             Debug.Log("punch");
         }
         StartCoroutine(reloading());
@@ -247,17 +249,17 @@ public class npcCtrl : hpBase
         yield return new WaitForSeconds(0.5f);
         stoped = false;
     }
-    public void toForward() {
+    public void toForward() { //Именно так...
         forward = true;
         bodys[0].SetActive(false);
         bodys[1].SetActive(true);
     }
-    public void toSide () {
+    public void toSide () { //... и никак больше. (нет)
         forward = false;
         bodys[0].SetActive(true);
         bodys[1].SetActive(false);
     }
-    protected virtual void UpdatePlus () {
+    protected virtual void UpdatePlus () { //Вероятно, мне тогда было очень плохо, когда я это писал.
 
     }
     public void TriggerToPlayer() {
@@ -275,14 +277,14 @@ public class npcCtrl : hpBase
         }
     }
     protected virtual void OnDisable () {
-        StopAllCoroutines();
+        StopAllCoroutines(); //Дефолтные операции по завершению цикла жизни. Не путать с Death, он, как-никак, вызывается при нулевом хп, а не при отключении.
         characterctrl.it.detachAllNpcs.RemoveListener(detachMe);
         if (addedRoNearList) {
             characterctrl.nearNpcs.Remove(this);
             addedRoNearList = false;
         }
     }
-    public virtual void PlayerPizdesTvorit() {
+    public virtual void PlayerPizdesTvorit() { //Тут все просто.
         if (courage > characterctrl.wantedLvl) {
             TriggerToPlayer();
         }
@@ -290,17 +292,16 @@ public class npcCtrl : hpBase
             Tikaem();
         }  
     }
-    private IEnumerator ICallThePolice () {
+    private IEnumerator ICallThePolice () { //И тут.
         yield return new WaitForSeconds(4);
         mentiManagement.me.SendNaryad(0,characterctrl.me.position);
     }
     public void DetachTarget () {
         StartCoroutine(neponyal());
     }
-    protected virtual IEnumerator neponyal() {
-        //neponyatki = true;
+    protected virtual IEnumerator neponyal() { //Заставляет непися побродить кругом, а потом идти по делам. (см. след комментарий)
         Debug.Log("neponyal");
-        destination = reserveDest; //Дописать как он ходит рядом и растворяется
+        destination = reserveDest;
         attack = false;
         reserveDest.position = characterctrl.me.position;
         yield return new WaitForSeconds(2f);
@@ -311,8 +312,8 @@ public class npcCtrl : hpBase
         finalDestination = false; // Чтобы он пошел дальше гулять
         Debug.Log("ponyal");
     }
-    public void AllInit() {
-        //plusDestination = UnityEngine.Random.Range(10f,-10f);
+    public void AllInit() { //Инициализация, вызывается при каждом включении объекта. Много всего.
+    //Возврат переменных в исходное состояние.
         speedMultipl = 1;
         canIdti = true;
         dead = false;
