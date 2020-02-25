@@ -1,13 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public struct stage {
-    public string name;
-    public string desc;
-}
 public class quest : MonoBehaviour
 {
-    public stage[] stages;
+    protected string questName;
+    protected string whatToDo {
+        get {
+            return _whatToDo;
+        }
+        set {
+            _whatToDo = value;
+            scenarioCtrl.me.NextStage(_whatToDo);
+        }
+    }
+    protected string _whatToDo;
+
     private int _stage;
     public int stage {
         get {
@@ -17,10 +24,7 @@ public class quest : MonoBehaviour
             _stage = value;
         }
     }
-    private scenarioCtrl _scenarioCtrl;
-    void Start () {
-        _scenarioCtrl = scenarioCtrl.me;
-    }
+    
     public virtual void dialogCallback (int Id) {
 
     }

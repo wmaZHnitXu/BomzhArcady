@@ -9,6 +9,7 @@ public class questPanCtrl : MonoBehaviour
     private Animator text;
     [SerializeField]
     private Animator pan;
+    [SerializeField]
     private Text description;
     void OnMouseDown () {
         pan.SetBool("on",true);
@@ -27,7 +28,7 @@ public class questPanCtrl : MonoBehaviour
         StartCoroutine(quickShow());
     }
     public void SetQuestDesc (string desc) {
-        description.text = desc; 
+        description.text = desc;
         StartCoroutine(quickShow());
     }
 }

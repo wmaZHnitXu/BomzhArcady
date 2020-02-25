@@ -29,6 +29,7 @@ public class StartScreenCtrl : MonoBehaviour
                 characterctrl.freeze = false;
                 //canvases[0].SetActive(false);
                 characterctrl.it.switchSiting(false);
+                characterctrl.it.gameStarted = true;
                 cslr.scaleFactor = 1f;
             }
         }

@@ -59,6 +59,7 @@ public class talkCtrl : MonoBehaviour
         foreach (GameObject g in textObjects) {
             g.SetActive(false);
         }
+        //Вывод реплики.
         charray = repliki[replId].repl.ToCharArray();
         said.text = string.Empty;
         foreach (char c in charray) {
@@ -68,6 +69,12 @@ public class talkCtrl : MonoBehaviour
         foreach (GameObject g in textObjects) {
             g.SetActive(true);
         }
+        //Каллбэк
+        if (repliki[replId].questId != 0) {
+            scenarioCtrl.me.questContainer.dialogCallback(repliki[replId].questId);
+            Debug.Log("Callback");
+        }
+        //Ответы.
         if (repliki[replId].answerCode != 0) {
             answerCount = answers[repliki[replId].answerCode].answer.Length;
             inverse.AddRange(answers[repliki[replId].answerCode].answer);
@@ -89,7 +96,7 @@ public class talkCtrl : MonoBehaviour
             }
         }
     }
-    IEnumerator LoadRepl (string text) {
+    IEnumerator LoadRepl (string text) { //Метод юзается только для единичных реплик (без диалога)
         charray = text.ToCharArray();
         said.text = string.Empty;
         foreach (char c in charray) {
@@ -107,6 +114,7 @@ public class talkCtrl : MonoBehaviour
         said.text = string.Empty;
     }
     public void SayThis (string text) {
+        StopAllCoroutines();
         StartCoroutine(LoadRepl(text));
     }
     public void SetActiveButton (bool active) {

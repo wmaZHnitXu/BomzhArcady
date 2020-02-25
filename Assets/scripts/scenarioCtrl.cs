@@ -10,8 +10,11 @@ public class scenarioCtrl : MonoBehaviour
     public quest questContainer;
     [SerializeField]
     private questPanCtrl panel;
-    public void NextStage () {
-
+    void Awake () {
+        me = this;
+    }
+    public void NextStage (string stageDesc) {
+        panel.SetQuestDesc(stageDesc);
     }
     public void Complete () {
         

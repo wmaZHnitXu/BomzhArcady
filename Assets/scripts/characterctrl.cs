@@ -132,6 +132,7 @@ public class characterctrl : MonoBehaviour
     private ParticleSystem brakeParticles;
     [SerializeField]
     private bool brake;
+    public bool gameStarted;
 
 
     void Awake()
