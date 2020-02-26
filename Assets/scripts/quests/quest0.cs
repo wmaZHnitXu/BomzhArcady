@@ -62,7 +62,13 @@ public class quest0 : quest
             talker.SayThis("Да, да, опять буйный индивид на мосту.");
             yield return new WaitForSeconds(4f);
             talker.SayThis("Хорошо, ожидаем.");
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
+            talker.SayThis("Далеко не уходи, за тобой сейчас заедут");
+            while (dudearm.localRotation != Quaternion.identity) {
+                yield return new WaitForFixedUpdate();
+                dudearm.localRotation = Quaternion.RotateTowards(dudearm.localRotation,Quaternion.identity,3f);
+            }
+            phone.enabled = false;
         }
     }
     public override void dialogCallback(int Id) {
