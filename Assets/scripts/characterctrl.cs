@@ -47,6 +47,9 @@ public class characterctrl : MonoBehaviour
     [SerializeField]
     private Transform camtrns;
     public Transform caminterp;
+    private Transform camTarget;
+    private bool camOnTransform;
+    private Vector3 camHere;
     Vector3 pos2;
     [SerializeField]
     public static bool rotation; //true - повернут вправо, false - повернут влево
@@ -139,6 +142,7 @@ public class characterctrl : MonoBehaviour
     {
         //Application.targetFrameRate = 60;
         it = this;
+        ResetCam();
         meleForce = 50;
         me = gameObject.transform;
         rotation = true;
@@ -185,7 +189,7 @@ public class characterctrl : MonoBehaviour
         if (directions[1])
         force.x = Mathf.MoveTowards(force.x,-speed,acceleration);
         rb.velocity = force;
-        pos2 = Vector3.Lerp(camtrns.position,caminterp.position,camspeed);
+        pos2 = Vector3.Lerp(camtrns.position,camTarget.position,camspeed);
         pos2.z = -10;
         if (pos2.x < camBorders[0]) {
             pos2.x = camBorders[0];
@@ -516,5 +520,18 @@ public class characterctrl : MonoBehaviour
     }
     public void Exit() {
         Application.Quit();
+    }
+    public void SetCamTarget (Transform target) {
+        camTarget = target;
+        camOnTransform = true;
+    }
+    public void SetCamTarget (Vector3 pos) {
+        camHere = pos;
+        camOnTransform = false;
+    }
+
+    public void ResetCam () {
+        camTarget = caminterp;
+        camOnTransform = true;
     }
 }

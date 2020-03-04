@@ -15,7 +15,7 @@ public class carNpcCtrl : hpBase
     protected bool ai;
     public float maxSpeed;
     protected float speed;
-    protected float dist;
+    public float dist;
     protected Vector3 startScale;
     protected Vector2 forceMaster;
     [SerializeField]

@@ -14,6 +14,7 @@ public class quest : MonoBehaviour
         }
     }
     protected string _whatToDo;
+    [SerializeField]
 
     private int _stage;
     public int stage {
