@@ -136,6 +136,8 @@ public class characterctrl : MonoBehaviour
     [SerializeField]
     private bool brake;
     public bool gameStarted;
+    [SerializeField]
+    private GameObject mainCanvas;
 
 
     void Awake()
@@ -533,5 +535,10 @@ public class characterctrl : MonoBehaviour
     public void ResetCam () {
         camTarget = caminterp;
         camOnTransform = true;
+    }
+    public void StartCutScene (bool start) {
+        mainCanvas.SetActive(!start);
+        rb.isKinematic = start;
+        freeze = start;
     }
 }

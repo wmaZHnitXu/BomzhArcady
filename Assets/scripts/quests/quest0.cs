@@ -55,6 +55,7 @@ public class quest0 : quest
         if (stage == 10) {
             whatToDo = "Задание провалено?";
             //Руку крутим
+            characterctrl.it.StartCutScene(true);
             Quaternion q = Quaternion.Euler(0,0,170);
             phone.enabled = true;
             while (dudearm.localRotation != q) {

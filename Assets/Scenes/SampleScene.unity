@@ -17445,6 +17445,7 @@ MonoBehaviour:
   brakeParticles: {fileID: 0}
   brake: 0
   gameStarted: 0
+  mainCanvas: {fileID: 1437406259}
 --- !u!4 &243997055
 Transform:
   m_ObjectHideFlags: 0
@@ -30219,7 +30220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa0d17a2a6fc344da71ae8164b0b432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stage: 10
+  _stage: 0
   dudearm: {fileID: 145620946}
   phone: {fileID: 1263326471}
   durkaTransform: {fileID: 920722877}
