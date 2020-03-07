@@ -22,6 +22,10 @@ public class quest0 : quest
     private Transform[] saniTARS = new Transform[2];
     [SerializeField]
     private npcGoCtrl[] saniTARSCtrls = new npcGoCtrl[2];
+    [SerializeField]
+    private GameObject durkaDead;
+    [SerializeField]
+    private Transform LookAt;
     void Start () {
         playerTransform = characterctrl.me;
         StartCoroutine(questBody()); 
@@ -105,7 +109,14 @@ public class quest0 : quest
             }
             yield return new WaitForSeconds(0.5f);
             durkaDoorAnim.SetBool("open",false);
-            durkaCtrl.destination.x = 200;
+            characterctrl.it.SetCamTarget(LookAt);
+            characterctrl.it.camspeed = 0.01f;
+            yield return new WaitForSeconds(1f);
+            characterctrl.it.camspeed = 0.1f;
+            durkaCtrl.destination.x = 260;
+            while (durkaTransform.position.x < 220)
+                yield return new WaitForFixedUpdate();
+            StartCoroutine(Avaria());
         }
     }
     public override void dialogCallback(int Id) {
@@ -114,6 +125,21 @@ public class quest0 : quest
             talked = true;
             stage = 9;
             break;
+        }
+    }
+    IEnumerator Avaria () {
+        Vector3 newPos;
+        playerTransform.SetParent(null);
+        durkaDead.SetActive(true);
+        durkaDead.transform.position = durkaTransform.position;
+        durkaTransform.gameObject.SetActive(false);
+        characterctrl.it.StartCutScene(false);
+        playerTransform.position = new Vector3(characterctrl.me.position.x,characterctrl.me.position.y,0);
+        newPos = characterctrl.me.position;
+        newPos.x += 10;
+        while ((playerTransform.position - newPos).magnitude > 0.5f) {
+            playerTransform.position = Vector3.Lerp(playerTransform.position,newPos,0.1f);
+            yield return new WaitForFixedUpdate();
         }
     }
 }

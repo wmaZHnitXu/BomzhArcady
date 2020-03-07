@@ -170,8 +170,8 @@ public class characterctrl : MonoBehaviour
             directions[1] = false;
             }
             if (onPc) {
-                directions[0] = Input.GetKey(KeyCode.D);
-                directions[1] = Input.GetKey(KeyCode.A);
+                directions[0] = Input.GetKey(KeyCode.D) & !freeze;
+                directions[1] = Input.GetKey(KeyCode.A) & !freeze;
             }
         }
         idem = directions[0] ^ directions[1];  
@@ -535,10 +535,12 @@ public class characterctrl : MonoBehaviour
     public void ResetCam () {
         camTarget = caminterp;
         camOnTransform = true;
+        camspeed = 0.1f;
     }
     public void StartCutScene (bool start) {
         mainCanvas.SetActive(!start);
         rb.isKinematic = start;
+        ResetCam();
         freeze = start;
     }
 }
