@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 using UnityEngine.Events;
 
 public class npcCtrl : hpBase
@@ -54,6 +55,13 @@ public class npcCtrl : hpBase
     public byte wlPlus = 5;
     private UnityAction detachMe;
     public bool bornByScript;
+    public static readonly List<npcCtrl> allNpcs = new List<npcCtrl>();
+
+    private static readonly int Attack = Animator.StringToHash("attack");
+    private static readonly int Def = Animator.StringToHash("def");
+    private static readonly int Hit = Animator.StringToHash("hit");
+    private static readonly int Idem = Animator.StringToHash("idem");
+
     //Все настолько нанотеч, что у меня есть пул для нпс, но нет пула для пуль.
     protected void Awake () { //Не допускать мертворождение(слой меняется во время смерти)
         myLayer = gameObject.layer;
@@ -62,10 +70,11 @@ public class npcCtrl : hpBase
         scaleFactor = Scale.x;
         if (reserveDest == null)
             reserveDest = new GameObject(gameObject.name + "_destRes").transform;
-        gameObject.name = gameObject.name + MasterPool.howManyNpcWeHave.ToString();
+        gameObject.name += MasterPool.howManyNpcWeHave.ToString();
         if (playerTrns == null) {
             playerTrns = characterctrl.me;
         }
+        allNpcs.Add(this);
     }
     protected virtual void OnEnable()
     {
@@ -75,54 +84,54 @@ public class npcCtrl : hpBase
     protected void FixedUpdate()
     {
         if (canIdti) {
-        dist = destination.position.x - transform.position.x;
-        toPlayerDistance = Math.Abs(transform.position.x - playerTrns.position.x);
-        if (toPlayerDistance > (!bornByScript ? 50 : 200)) { //Возвращаем в пулл, дабы не перенаселять мир
-            SilentDeath();
-        }
-        if (dist > 0) {
-            if (!right) {
-            right = true;
-            Scale.x = scaleFactor;
-            transform.localScale = Scale;
+            dist = destination.position.x - transform.position.x;
+            toPlayerDistance = Math.Abs(transform.position.x - playerTrns.position.x);
+            if (toPlayerDistance > (!bornByScript ? 50 : 200)) { //Возвращаем в пулл, дабы не перенаселять мир
+                SilentDeath();
             }
-            direction.x = 1;
-            IdemSwitch(true);
-        }
-        if (dist < 0) {
-            if (right) {
-            right = false;
-            Scale.x = -scaleFactor;
-            transform.localScale = Scale;
+            if (dist > 0) {
+                if (!right) {
+                    right = true;
+                    Scale.x = scaleFactor;
+                    transform.localScale = Scale;
+                }
+                direction.x = 1;
+                IdemSwitch(true);
             }
-            direction.x = -1;
-            IdemSwitch(true);
+            if (dist < 0) {
+                if (right) {
+                    right = false;
+                    Scale.x = -scaleFactor;
+                    transform.localScale = Scale;
+                }
+                direction.x = -1;
+                IdemSwitch(true);
         
-        }
-        if (Mathf.Abs(dist) < criticalDist + plusDestination) {
-            direction.x = 0;
-            IdemSwitch(false);
-            if (attack) {
-                if (!characterctrl.it.dead) {
-                    Attacking();
+            }
+            if (Mathf.Abs(dist) < criticalDist + plusDestination) {
+                direction.x = 0;
+                IdemSwitch(false);
+                if (attack) {
+                    if (!characterctrl.it.dead) {
+                        Attacking();
+                    }
+                    else
+                    {
+                        attack = false;
+                        destination = reserveDest;
+                    }
                 }
-                else
-                {
-                    attack = false;
-                    destination = reserveDest;
+                else {
+                    if (!finalDestination)
+                        reserveDest.position = new Vector3(transform.position.x + UnityEngine.Random.Range(30f,-30f),transform.position.y,transform.position.z);
                 }
             }
-            else {
-                if (!finalDestination)
-                reserveDest.position = new Vector3(transform.position.x + UnityEngine.Random.Range(30f,-30f),transform.position.y,transform.position.z);
-            }
-        }
-        if (!stoped)
-            rb.AddForce(direction * speed * speedMultipl);
+            if (!stoped)
+                rb.AddForce(direction * (speed * speedMultipl));
         }
         if (toPlayerDistance < 10f) {
             if (!addedRoNearList) {
-                characterctrl.nearNpcs.Add(this);
+                characterctrl.NearNpcs.Add(this);
                 if (characterctrl.wantedLvl >= 15) {
                     PlayerPizdesTvorit();
                 } 
@@ -131,22 +140,21 @@ public class npcCtrl : hpBase
         }
         else {
             if (addedRoNearList) {
-                characterctrl.nearNpcs.Remove(this);
+                characterctrl.NearNpcs.Remove(this);
                 addedRoNearList = false;
             }
         }
         UpdatePlus();
     }
     protected virtual void IdemSwitch (bool b) { //Анимация ходьбы вкл/выкл
-        if (idet != b) {
-            if (hasForwardFacing & b) {
-                toSide();
-            }
-            foreach (Animator a in forIdem) {
-               a.SetBool("idem",b);
-            }
-            idet = b;
+        if (idet == b) return;
+        if (hasForwardFacing & b) {
+            toSide();
         }
+        foreach (var a in forIdem) {
+            a.SetBool(Idem,b);
+        }
+        idet = b;
     }
     public override void addHit(int hit) { //Получение урона.
         hp -= hit;
@@ -155,7 +163,7 @@ public class npcCtrl : hpBase
             fxHub.GiveMeBloodyExplosion(transform.position);
             SilentDeath();
         }
-        rb.AddForce((transform.position - characterctrl.me.position).normalized * 10 * characterctrl.meleForce);
+        rb.AddForce((transform.position - characterctrl.me.position).normalized * (10 * characterctrl.meleForce));
         StartCoroutine(Stoping());
         if (characterctrl.meleForce > 50) {
             StartCoroutine(stun());
@@ -168,22 +176,22 @@ public class npcCtrl : hpBase
         else {
             Tikaem();
         }
-        if (hitAnim!=null) hitAnim.SetTrigger("hit");
+        if (hitAnim!=null) hitAnim.SetTrigger(Hit);
         if (hp <= 0) {
             death();
         }
     }
     public override void addHit(int hit, Vector3 punchPos) { //Перегрузка метода сверху, благодаря которй нпс может отлетать в нужном направлении.
         addHit(hit);
-        rb.AddForce((transform.position - punchPos).normalized * hit * 30);
+        rb.AddForce((transform.position - punchPos).normalized * (hit * 30));
     }
     public virtual void Attacking () { //Этот и последующие три метода отвечают за атаку, и там все страшно.
         Debug.Log("Я бью ребенка (C) " + gameObject.name);
         if (reloaded) {
             reloaded = false;
-            attackAnim.SetTrigger("attack");
+            attackAnim.SetTrigger(Attack);
                 foreach (Animator a in forIdem) {
-                    a.SetTrigger("def");
+                    a.SetTrigger(Def);
                 }
             StartCoroutine(puncher());
         }
@@ -198,8 +206,8 @@ public class npcCtrl : hpBase
     public IEnumerator puncher() {
         yield return new WaitForSeconds(0.2f);
         if (!stoped) {
-            characterctrl.health -= punch;
-            characterctrl.it.addHit();
+            characterctrl.Health -= punch;
+            characterctrl.it.AddHit();
             if (kickPos != null)
                 characterctrl.rb.AddForce(realisticPunchForce ? (destination.position - transform.position).normalized * 10 * punch : new Vector3((destination.position.x - transform.position.x > 0 ? punch : -punch) * 100 ,0,0));
             Debug.Log("punch");
@@ -280,7 +288,7 @@ public class npcCtrl : hpBase
         StopAllCoroutines(); //Дефолтные операции по завершению цикла жизни. Не путать с Death, он, как-никак, вызывается при нулевом хп, а не при отключении.
         characterctrl.it.detachAllNpcs.RemoveListener(detachMe);
         if (addedRoNearList) {
-            characterctrl.nearNpcs.Remove(this);
+            characterctrl.NearNpcs.Remove(this);
             addedRoNearList = false;
         }
     }

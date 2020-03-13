@@ -149,9 +149,9 @@ public class inventoryCtrl : MonoBehaviour
     }
     void OnMouseUp() {
         if (structs[itemClickedId].type == 0 & isEnabled == false & itemClickedId != 0) {
-            characterctrl.health = System.Convert.ToByte(structs[itemClickedId].health < 0 ? characterctrl.health - System.Convert.ToByte(Mathf.Abs(structs[itemClickedId].health)) :  characterctrl.health + System.Convert.ToByte(structs[itemClickedId].health));
-            if (characterctrl.health > 100) {
-                characterctrl.health = 100;
+            characterctrl.Health = System.Convert.ToByte(structs[itemClickedId].health < 0 ? characterctrl.Health - System.Convert.ToByte(Mathf.Abs(structs[itemClickedId].health)) :  characterctrl.Health + System.Convert.ToByte(structs[itemClickedId].health));
+            if (characterctrl.Health > 100) {
+                characterctrl.Health = 100;
             }
             characterctrl.eat += structs[itemClickedId].eat;
             if (characterctrl.eat > 100) {

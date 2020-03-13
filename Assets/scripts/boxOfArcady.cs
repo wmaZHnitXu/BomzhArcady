@@ -24,7 +24,7 @@ public class boxOfArcady : MonoBehaviour
         enterButton.SetActive(false);
         isPlayerInside = true;
         nearDoor = false;
-        characterctrl.it.inBox = true;
+        characterctrl.it.InBox = true;
         characterctrl.it.detachAllNpcs.Invoke();
     }
     public void Exit () {
@@ -32,7 +32,7 @@ public class boxOfArcady : MonoBehaviour
         exitButton.SetActive(false);
         isPlayerInside = false;
         nearDoor = false;
-        characterctrl.it.inBox = false;
+        characterctrl.it.InBox = false;
     }
     void Update () {
         if (Mathf.Abs(player.position.x - enterPosition) < 1f) {

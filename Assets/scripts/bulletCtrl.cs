@@ -45,8 +45,8 @@ public class bulletCtrl : MonoBehaviour
     public void stack(Collider2D coll) {
         if (coll.gameObject.layer == targLayer) {
             if (forPlayer) {
-                characterctrl.health -= hit;
-                characterctrl.it.addHit();
+                characterctrl.Health -= hit;
+                characterctrl.it.AddHit();
                 characterctrl.rb.AddForce((characterctrl.me.position - bullet.position).normalized * 0.01f *  hit);
                 if (!laser)
                 fxHub.GiveMeBlood(bullet.position);

@@ -4,11 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.Experimental.Rendering.LWRP;
+using Random = System.Random;
 
+public struct npcSpawnStructure
+{
+    public GameObject npcPrefab;
+    public float probability;
+}
 public class timeCtrl : MonoBehaviour
 {
     public int time;
-    WaitForSeconds ses;
+    private WaitForSeconds ses;
     public float timestep;
     public int minutes;
     public int hours;
@@ -23,19 +29,17 @@ public class timeCtrl : MonoBehaviour
     private GameObject maniac;
     [SerializeField]
     private maniacCtrl maniacCtrl;
-    private bool maniacEjected;
+    private bool bossEjected;
+    [SerializeField] private npcSpawnStructure[] nights;
+    [SerializeField] private float[] nightFrequency;
+    [SerializeField] private int day;
     void Start()
     {
         ses = new WaitForSeconds(timestep);
-        StartCoroutine(timeRecount());
+        StartCoroutine(TimeRecount());
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
-    }
-    IEnumerator timeRecount () {
+    private IEnumerator TimeRecount () {
         while (true) {
             yield return ses;
             time++;
@@ -49,10 +53,9 @@ public class timeCtrl : MonoBehaviour
                 clock.text = hours.ToString() + ":0" + minutes.ToString();
             else
                 clock.text = hours.ToString() + ":" + minutes.ToString();
-            
-            for (int i = 0; i < 5; i++) {
-            multiplers[i] = (360 - (float)(0 < Math.Abs(times[i] - time) ? Math.Abs(times[i] - time) : 1)) / 360;
-            if (multiplers[i] < 0) multiplers[i] = 0;
+            for (var i = 0; i < 5; i++) {
+                multiplers[i] = (360 - (float)(0 < Math.Abs(times[i] - time) ? Math.Abs(times[i] - time) : 1)) / 360;
+                if (multiplers[i] < 0) multiplers[i] = 0;
             }
             skySprite.color = timeColors[0] * multiplers[0] + timeColors[1] * multiplers[1] + timeColors[2] * multiplers[2] + timeColors[3] * multiplers[3] + timeColors[4] * multiplers[4];
             night = time < 250 | time > 1180;
@@ -61,15 +64,23 @@ public class timeCtrl : MonoBehaviour
             }
             if (!night & sunLight.intensity < 1.59f )
                 sunLight.intensity = Mathf.Lerp(sunLight.intensity,1.6f,0.01f);
-            if (sunLight.intensity < 0.7f && !maniacEjected && characterctrl.nearNpcs.Count == 0) {
-                maniacEjected = true;
+            if (sunLight.intensity < 0.7f && !bossEjected && characterctrl.NearNpcs.Count == 0) {
+                bossEjected = true;
                 maniac.transform.position = characterctrl.me.position + (UnityEngine.Random.Range(0,100) > 50 ? new Vector3(10,0,0) : new Vector3 (-10,0,0));
                 maniac.SetActive(true);
             }
-            if (sunLight.intensity > 0.7 & maniacEjected) {
-                maniacEjected = false;
+            if (sunLight.intensity > 0.7 & bossEjected) {
+                bossEjected = false;
                 maniac.SetActive(false);
             }
+        }
+    }
+
+    private IEnumerator NightRaid() //Todo Спавн нпс и босса
+    {
+        while (night)
+        {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(nightFrequency[day],nightFrequency[day] * 2));
         }
     }
 }

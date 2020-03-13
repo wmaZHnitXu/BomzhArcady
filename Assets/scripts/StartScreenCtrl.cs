@@ -17,7 +17,7 @@ public class StartScreenCtrl : MonoBehaviour
     private ParticleSystem particle;
     void Start()
     {
-        characterctrl.it.switchSiting(true);
+        characterctrl.it.SwitchSiting(true);
     }
 
     void FixedUpdate()
@@ -28,7 +28,7 @@ public class StartScreenCtrl : MonoBehaviour
                 starting = false;
                 characterctrl.freeze = false;
                 //canvases[0].SetActive(false);
-                characterctrl.it.switchSiting(false);
+                characterctrl.it.SwitchSiting(false);
                 characterctrl.it.gameStarted = true;
                 cslr.scaleFactor = 1f;
             }
