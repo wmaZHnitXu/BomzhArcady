@@ -8,8 +8,8 @@ using Random = System.Random;
 
 public struct npcSpawnStructure
 {
-    public GameObject npcPrefab;
-    public float probability;
+    public GameObject[] npcPrefab;
+    public float[] probability;
 }
 public class timeCtrl : MonoBehaviour
 {
@@ -80,7 +80,22 @@ public class timeCtrl : MonoBehaviour
     {
         while (night)
         {
+            Instantiate(NpcRandomized(), characterctrl.it.GetNpcSpawnPosition(), Quaternion.identity);
             yield return new WaitForSeconds(UnityEngine.Random.Range(nightFrequency[day],nightFrequency[day] * 2));
         }
+    }
+
+    private GameObject NpcRandomized()
+    {
+        var resultId = 0;
+        float maxWeight = 0;
+        for (var i = 0; i < nights[day].probability.Length; i++)
+        {
+            var newWeight = UnityEngine.Random.Range(0,nights[day].probability[i]);
+            if (!(maxWeight < newWeight)) continue;
+            maxWeight = newWeight;
+            resultId = i;
+        }
+        return nights[day].npcPrefab[resultId];
     }
 }

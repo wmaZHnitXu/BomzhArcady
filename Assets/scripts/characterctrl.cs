@@ -555,4 +555,9 @@ public class characterctrl : MonoBehaviour
         ResetCam();
         freeze = start;
     }
+
+    public Vector3 GetNpcSpawnPosition()
+    {
+        return Random.Range(0, 100) > 50 ? npcSpawnPos[1] : npcSpawnPos[0];
+    }
 }

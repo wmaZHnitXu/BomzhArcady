@@ -37664,7 +37664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 100
-  timestep: 0.1
+  timestep: 0.2
   minutes: 0
   hours: 0
   clock: {fileID: 662956990}
