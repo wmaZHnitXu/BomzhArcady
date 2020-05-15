@@ -1,23 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 public class quest : MonoBehaviour
 {
     protected string questName;
-    protected string whatToDo {
+    protected string WhatToDo {
         get {
-            return _whatToDo;
+            return whatToDo;
         }
         set {
-            _whatToDo = value;
-            scenarioCtrl.me.NextStage(_whatToDo);
+            whatToDo = value;
+            scenarioCtrl.me.NextStage(whatToDo);
         }
     }
-    protected string _whatToDo;
-    [SerializeField]
+    protected string whatToDo;
+    [FormerlySerializedAs("_stage")] [SerializeField]
 
     private int _stage;
-    public int stage {
+    public int Stage {
         get {
             return _stage;
         }
@@ -26,7 +28,7 @@ public class quest : MonoBehaviour
         }
     }
     
-    public virtual void dialogCallback (int Id) {
+    public virtual void DialogCallback (int id) {
 
     }
 }

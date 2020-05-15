@@ -11,16 +11,16 @@ public class musorCtrl : hpBase
     private Animator a;
     private propBlastCtrl c;
     private bool dead;
-   public override void addHit(int hit) {
+   public override void AddHit(int hit) {
        if (!dead) {
        hp -= hit;
        a.SetTrigger("hit");
        if (hp <= 0) {
-           death();
+           Death();
            }
        }
    }
-   public override void death() {
+   public override void Death() {
        for (int i = 0; i != musorCount; i++) {
            c = Instantiate(musori[Random.Range(musori.Length - 1,0)],transform.position,transform.rotation).GetComponent<propBlastCtrl>();
            c.Blast();

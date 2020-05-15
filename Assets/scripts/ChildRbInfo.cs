@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChildRbInfo : MonoBehaviour
+public class childRbInfo : MonoBehaviour
 {
     public bulletCtrl b;
     public bool loaded;
     public bool isLaser;
     void OnTriggerEnter2D(Collider2D coll) {
         if (loaded) {
-        b.stack(coll);
+        b.Stack(coll);
         }
     }
     public void OnTriggerExit2D (Collider2D coll) {
@@ -19,7 +19,7 @@ public class ChildRbInfo : MonoBehaviour
     }
     public void OnTriggerStay2D (Collider2D coll) {
         if (loaded) {
-            b.stack(coll);
+            b.Stack(coll);
         } 
     }
 }

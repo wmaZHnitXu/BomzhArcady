@@ -7,28 +7,28 @@ public class metalCtrl : kioskCtrl
 {
     public byte needId;
     public override void Update() {
-        if (Vector3.Distance(player.position,KioskPosition.position) < dist & !buttonOn) {
+        if (Vector3.Distance(player.position,kioskPosition.position) < dist & !buttonOn) {
             buttonOn = true;
             button.SetActive(true);
         }
-        if (!(Vector3.Distance(player.position,KioskPosition.position) < dist) & buttonOn) {
+        if (!(Vector3.Distance(player.position,kioskPosition.position) < dist) & buttonOn) {
             buttonOn = false;
             button.SetActive(false);
         }
         if (buttonOn) {
-            if (buttonActive & !(hasItem(needId))) {
+            if (buttonActive & !(HasItem(needId))) {
                 buttonActive = false;
                 buttonImg.color = colors[1];
                 Debug.Log("button false");
             }
-            if (!buttonActive & hasItem(needId)) {
+            if (!buttonActive & HasItem(needId)) {
                 buttonActive = true;
                 buttonImg.color = colors[0];
                 Debug.Log("button true");
             }
         }
     }
-    public bool hasItem(byte id) {
+    public bool HasItem(byte id) {
         bool h = false;
         for (int i = 0; i < 4; i++) {
             for (int i2 = 0; i2 < 4; i2++) {
@@ -42,7 +42,7 @@ public class metalCtrl : kioskCtrl
         if (buttonActive) {
             //Debug.LogWarning("пиздос successfull");
             Instantiate(tovar,tovarpoint.position,tovarpoint.rotation);
-            inventoryCtrl.me.removeItem(needId);
+            inventoryCtrl.me.RemoveItem(needId);
         }
         else {
             //Debug.LogAssertion("пиздос error" + " " + buttonActive.ToString() + " " + hasItem(needId) + needId.ToString());

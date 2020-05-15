@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class kioskCtrl : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class kioskCtrl : MonoBehaviour
     [SerializeField]
     protected GameObject button;
     public int price;
-    protected ClickCallback call;
+    protected clickCallback call;
     [SerializeField]
     protected bool buttonOn;
     [SerializeField]
@@ -18,8 +19,8 @@ public class kioskCtrl : MonoBehaviour
     protected SpriteRenderer buttonImg;
     [SerializeField]
     protected Color[] colors = new Color[2];
-    [SerializeField]
-    protected Transform KioskPosition;
+    [FormerlySerializedAs("KioskPosition")] [SerializeField]
+    protected Transform kioskPosition;
     [SerializeField]
     protected Transform tovarpoint;
     [SerializeField]
@@ -34,11 +35,11 @@ public class kioskCtrl : MonoBehaviour
 
     public virtual void Update()
     {
-        if (Vector3.Distance(player.position,KioskPosition.position) < dist & !buttonOn) {
+        if (Vector3.Distance(player.position,kioskPosition.position) < dist & !buttonOn) {
             buttonOn = true;
             button.SetActive(true);
         }
-        if (!(Vector3.Distance(player.position,KioskPosition.position) < dist) & buttonOn) {
+        if (!(Vector3.Distance(player.position,kioskPosition.position) < dist) & buttonOn) {
             buttonOn = false;
             button.SetActive(false);
         }

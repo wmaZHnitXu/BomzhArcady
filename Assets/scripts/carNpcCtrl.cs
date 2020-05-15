@@ -63,7 +63,7 @@ public class carNpcCtrl : hpBase
                 speed = Mathf.Lerp(speed,0,0.2f);
                 if (speed < 0.01f)
                     if (!ejected) {
-                        StartCoroutine(doEjection());
+                        StartCoroutine(DoEjection());
                         ejected = true;
                     }
             }
@@ -73,19 +73,19 @@ public class carNpcCtrl : hpBase
             wheels[1].Rotate(0,0,rb.velocity.magnitude);
         }
     }
-    protected IEnumerator doEjection () {
+    protected IEnumerator DoEjection () {
         for (int i = 0; i != npcs.Length; i++) {
             yield return new WaitForSeconds(0.1f);
             Instantiate(npcs[Random.Range(0,npcs.Length-1)],doors[i].position,doors[i].rotation);
         }
     }
-    public override void addHit(int hit) {
+    public override void AddHit(int hit) {
         hp -= hit;
         if (hp <= 0) {
-            death();
+            Death();
         }
     }
-    public override void death() {
+    public override void Death() {
         deadBody.SetActive(true);
         deadBody.transform.SetParent(null);
         fxHub.me.ShakeMe(1);

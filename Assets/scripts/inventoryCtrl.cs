@@ -59,7 +59,7 @@ public class inventoryCtrl : MonoBehaviour
                 }
             }
         }
-        renderInventory();
+        RenderInventory();
     }
     public void AddItem(byte itemId, byte count) {
         if (structs[itemId].type != 1) {
@@ -75,9 +75,9 @@ public class inventoryCtrl : MonoBehaviour
                 }
             }
         }
-        renderInventory();
+        RenderInventory();
     }
-    public void renderInventory () {
+    public void RenderInventory () {
          FormatInventory();
         for(byte i = 0; i < 4; i++) {
             for(byte i2 = 0; i2 < 4; i2++) {
@@ -90,7 +90,7 @@ public class inventoryCtrl : MonoBehaviour
                 }
             }
         }
-    public void itemCallBack (int id) {
+    public void ItemCallBack (int id) {
         itemClickedId = items[id % 4,id / 4,0];
         invClickedId = System.Convert.ToByte(id);
             if (itemClickedId != 0) { 
@@ -137,7 +137,7 @@ public class inventoryCtrl : MonoBehaviour
         else {
             isEnabled = true;
             inventory.SetActive(true);
-            renderInventory();
+            RenderInventory();
             clickPanel.SetActive(false);
             descText.text = string.Empty;
             descImage.sprite = sprites[0];
@@ -168,10 +168,10 @@ public class inventoryCtrl : MonoBehaviour
                 itemClickedId = 0;
             }
             inHandImg.sprite = sprites[itemClickedId];
-            renderInventory();
+            RenderInventory();
         }
     }
-    public void removeItem (byte id) {
+    public void RemoveItem (byte id) {
         bool removed = false;
         for(byte i = 0; i < 4 & removed == false; i++) {
             for(byte i2 = 0; i2 < 4 & removed == false; i2++) {
@@ -198,7 +198,7 @@ public class inventoryCtrl : MonoBehaviour
                 }
             }
         }
-        renderInventory();
+        RenderInventory();
     }
     public void FormatInventory() {
         for (int id = 1; id < 16; id++) {
@@ -213,7 +213,7 @@ public class inventoryCtrl : MonoBehaviour
     }
     public void TrashItem() {
         Instantiate(prefabs[itemClickedId],transform.position,transform.rotation);
-        removeItem(itemClickedId);
+        RemoveItem(itemClickedId);
         clickPanel.transform.position = new Vector3(100f,100f,100f);
     }
     public void WeaponInHand () {

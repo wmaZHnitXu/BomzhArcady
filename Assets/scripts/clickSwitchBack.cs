@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class clickSwitchBack : ClickCallback
+public class clickSwitchBack : clickCallback
 {
     [SerializeField]
     private int i;

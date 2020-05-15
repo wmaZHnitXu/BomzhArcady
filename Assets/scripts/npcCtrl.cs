@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-public class npcCtrl : hpBase
+public class npcCtrl : hpBase, IHp
 {
     public Rigidbody2D rb;
     public float speed;
@@ -15,7 +15,7 @@ public class npcCtrl : hpBase
     [SerializeField]
     protected Vector2 direction;
     public bool right;
-    protected Vector3 Scale;
+    protected Vector3 scale;
     protected float scaleFactor;
     [SerializeField]
     protected float dist;
@@ -55,26 +55,30 @@ public class npcCtrl : hpBase
     public byte wlPlus = 5;
     private UnityAction detachMe;
     public bool bornByScript;
-    public static readonly List<npcCtrl> allNpcs = new List<npcCtrl>();
+    public static readonly List<npcCtrl> AllNpcs = new List<npcCtrl>();
 
     private static readonly int Attack = Animator.StringToHash("attack");
     private static readonly int Def = Animator.StringToHash("def");
     private static readonly int Hit = Animator.StringToHash("hit");
     private static readonly int Idem = Animator.StringToHash("idem");
+    public int GetHp()
+    {
+        return hp;
+    }
 
     //Все настолько нанотеч, что у меня есть пул для нпс, но нет пула для пуль.
     protected void Awake () { //Не допускать мертворождение(слой меняется во время смерти)
         myLayer = gameObject.layer;
-        Scale = transform.localScale;
+        scale = transform.localScale;
         detachMe += DetachTarget;
-        scaleFactor = Scale.x;
+        scaleFactor = scale.x;
         if (reserveDest == null)
             reserveDest = new GameObject(gameObject.name + "_destRes").transform;
-        gameObject.name += MasterPool.howManyNpcWeHave.ToString();
+        gameObject.name += masterPool.howManyNpcWeHave.ToString();
         if (playerTrns == null) {
             playerTrns = characterctrl.me;
         }
-        allNpcs.Add(this);
+        AllNpcs.Add(this);
     }
     protected virtual void OnEnable()
     {
@@ -92,8 +96,8 @@ public class npcCtrl : hpBase
             if (dist > 0) {
                 if (!right) {
                     right = true;
-                    Scale.x = scaleFactor;
-                    transform.localScale = Scale;
+                    scale.x = scaleFactor;
+                    transform.localScale = scale;
                 }
                 direction.x = 1;
                 IdemSwitch(true);
@@ -101,8 +105,8 @@ public class npcCtrl : hpBase
             if (dist < 0) {
                 if (right) {
                     right = false;
-                    Scale.x = -scaleFactor;
-                    transform.localScale = Scale;
+                    scale.x = -scaleFactor;
+                    transform.localScale = scale;
                 }
                 direction.x = -1;
                 IdemSwitch(true);
@@ -149,14 +153,14 @@ public class npcCtrl : hpBase
     protected virtual void IdemSwitch (bool b) { //Анимация ходьбы вкл/выкл
         if (idet == b) return;
         if (hasForwardFacing & b) {
-            toSide();
+            ToSide();
         }
         foreach (var a in forIdem) {
             a.SetBool(Idem,b);
         }
         idet = b;
     }
-    public override void addHit(int hit) { //Получение урона.
+    public override void AddHit(int hit) { //Получение урона.
         hp -= hit;
         fxHub.me.EjectHitText(hit,transform.position);
         if (hp <= -100) {
@@ -166,7 +170,7 @@ public class npcCtrl : hpBase
         rb.AddForce((transform.position - characterctrl.me.position).normalized * (10 * characterctrl.meleForce));
         StartCoroutine(Stoping());
         if (characterctrl.meleForce > 50) {
-            StartCoroutine(stun());
+            StartCoroutine(Stun());
         }
         if (hitP != null)
             hitP.Play();
@@ -178,11 +182,11 @@ public class npcCtrl : hpBase
         }
         if (hitAnim!=null) hitAnim.SetTrigger(Hit);
         if (hp <= 0) {
-            death();
+            Death();
         }
     }
-    public override void addHit(int hit, Vector3 punchPos) { //Перегрузка метода сверху, благодаря которй нпс может отлетать в нужном направлении.
-        addHit(hit);
+    public override void AddHit(int hit, Vector3 punchPos) { //Перегрузка метода сверху, благодаря которй нпс может отлетать в нужном направлении.
+        AddHit(hit);
         rb.AddForce((transform.position - punchPos).normalized * (hit * 30));
     }
     public virtual void Attacking () { //Этот и последующие три метода отвечают за атаку, и там все страшно.
@@ -193,28 +197,27 @@ public class npcCtrl : hpBase
                 foreach (Animator a in forIdem) {
                     a.SetTrigger(Def);
                 }
-            StartCoroutine(puncher());
+            StartCoroutine(Puncher());
         }
     }
-    protected IEnumerator reloading () {
+    protected IEnumerator Reloading () {
         canIdti = false;
         yield return new WaitForSeconds(0.9f);
         canIdti = true;
         yield return new WaitForSeconds(reloadTime/4 * 3);
         reloaded = true;
     }
-    public IEnumerator puncher() {
+    public IEnumerator Puncher() {
         yield return new WaitForSeconds(0.2f);
         if (!stoped) {
-            characterctrl.Health -= punch;
-            characterctrl.it.AddHit();
+            characterctrl.it.AddHit(punch);
             if (kickPos != null)
                 characterctrl.rb.AddForce(realisticPunchForce ? (destination.position - transform.position).normalized * 10 * punch : new Vector3((destination.position.x - transform.position.x > 0 ? punch : -punch) * 100 ,0,0));
             Debug.Log("punch");
         }
-        StartCoroutine(reloading());
+        StartCoroutine(Reloading());
     }
-    public override void death() {
+    public override void Death() {
         if (!dead) {
             /* */gameObject.layer = 15; //dead
             Debug.Log("death + " + gameObject.name);
@@ -228,7 +231,7 @@ public class npcCtrl : hpBase
             dead = true;
             stoped = true;
             if (!bornByScript)
-                MasterPool.InsertNpc(gameObject,2f);
+                masterPool.InsertNpc(gameObject,2f);
             else
                 Destroy(gameObject,2f);
             //this.enabled = false; Хз, зачем, но пока закомментирую
@@ -237,12 +240,12 @@ public class npcCtrl : hpBase
     public void SilentDeath () {
         StopAllCoroutines();
         if (!bornByScript)
-            MasterPool.InsertNpc(gameObject);
+            masterPool.InsertNpc(gameObject);
         else
             Destroy(gameObject);
         //this.enabled = false;
     }
-    public IEnumerator stun() {
+    public IEnumerator Stun() {
         canIdti = false;
         rb.freezeRotation = false; //Это для крутого откидывания
         rb.drag = 1;
@@ -257,12 +260,12 @@ public class npcCtrl : hpBase
         yield return new WaitForSeconds(0.5f);
         stoped = false;
     }
-    public void toForward() { //Именно так...
+    public void ToForward() { //Именно так...
         forward = true;
         bodys[0].SetActive(false);
         bodys[1].SetActive(true);
     }
-    public void toSide () { //... и никак больше. (нет)
+    public void ToSide () { //... и никак больше. (нет)
         forward = false;
         bodys[0].SetActive(true);
         bodys[1].SetActive(false);
@@ -281,7 +284,7 @@ public class npcCtrl : hpBase
             destination = reserveDest;
             reserveDest.position = new Vector3((characterctrl.me.position.x < transform.position.x ? 10 : -10) + transform.position.x,transform.position.y,transform.position.z);
             speedMultipl = 1.5f;
-            StartCoroutine(ICallThePolice());
+            StartCoroutine(CallThePolice());
         }
     }
     protected virtual void OnDisable () {
@@ -300,14 +303,14 @@ public class npcCtrl : hpBase
             Tikaem();
         }  
     }
-    private IEnumerator ICallThePolice () { //И тут.
+    private IEnumerator CallThePolice () { //И тут.
         yield return new WaitForSeconds(4);
         mentiManagement.me.SendNaryad(0,characterctrl.me.position);
     }
     public void DetachTarget () {
-        StartCoroutine(neponyal());
+        StartCoroutine(Neponyal());
     }
-    protected virtual IEnumerator neponyal() { //Заставляет непися побродить кругом, а потом идти по делам. (см. след комментарий)
+    protected virtual IEnumerator Neponyal() { //Заставляет непися побродить кругом, а потом идти по делам. (см. след комментарий)
         Debug.Log("neponyal");
         destination = reserveDest;
         attack = false;
@@ -331,9 +334,9 @@ public class npcCtrl : hpBase
         transform.rotation = new Quaternion();
         right = true;
         stoped = false;
-        Scale.x = scaleFactor;
+        scale.x = scaleFactor;
         hp = 100;
-        transform.localScale = Scale;
+        transform.localScale = scale;
         gameObject.layer = myLayer;
         attack = false;
         if (anim != null)

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 
-public class characterctrl : MonoBehaviour
+public class characterctrl : hpBase
 {
    public static Transform me;
    public static float globalTime;
@@ -93,7 +93,7 @@ public class characterctrl : MonoBehaviour
     private readonly bool phone;
     private bool stopped;
     public Vector3[] npcSpawnPos;
-    public static readonly List<npcCtrl> NearNpcs = new List<npcCtrl>();
+    public static readonly List<hpBase> NearNpcs = new List<hpBase>();
     private int index;
     public static byte wantedLvl;
     public Transform[] towns;
@@ -115,11 +115,11 @@ public class characterctrl : MonoBehaviour
     public Animator youDied;
     public Vector2 spawnPoint;
     private float normalZRot;
-    private bool inBox;
+    private bool _inBox;
     public UnityEvent detachAllNpcs;
     public bool busy;
     public Transform worldCanvas;
-    private bool _inBox;
+    private bool inBox;
     public bool InBox {
         get => _inBox;
         set {
@@ -169,6 +169,10 @@ public class characterctrl : MonoBehaviour
         siting = true;
     }
 
+    public int GetHp()
+    {
+        return Health;
+    }
     private void FixedUpdate()
     {
         if (!dead)  {//ctrl
@@ -369,11 +373,11 @@ public class characterctrl : MonoBehaviour
     private IEnumerator PreAttackCd () {
         arm.SetTrigger(Attack1);
         yield return new WaitForSeconds(0.1f);
-        foreach (var b in GameObject.FindObjectsOfType<hpBase>()) {
-                    if (Vector3.Distance(b.transform.position,melePos.position) < meleDistance) {
-                        b.addHit(meleeDamage);
+        foreach (var b in NearNpcs) {
+                    if (Vector3.Distance(((MonoBehaviour)b).transform.position,melePos.position) < meleDistance) {
+                        b.AddHit(meleeDamage);
                         if (armBuff) {
-                            b.addHit(meleeDamage * 2);
+                            b.AddHit(meleeDamage * 2);
                         }
                     }
                     if (armBuff) {
@@ -414,7 +418,9 @@ public class characterctrl : MonoBehaviour
             inventoryCtrl.me.inHandWeapon.sprite = wsprites[0];
         }
     }
-    public void AddHit () {
+    public override void AddHit (int hp)
+    {
+        Health -= hp;
         StartCoroutine(Stopping());
     }
 
@@ -431,7 +437,7 @@ public class characterctrl : MonoBehaviour
     }
     IEnumerator Braking () {
         brake = true;
-        while (Mathf.Abs(rb.velocity.x) > speed * 2f) {
+        while (Mathf.Abs(rb.velocity.x) > speed * 4f) {
             rb.velocity = new Vector2(rb.velocity.x * 0.9f,0);
             transform.rotation = Quaternion.Euler(0,0,rb.velocity.x);
             brakeParticles.Play();
@@ -443,16 +449,19 @@ public class characterctrl : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.identity,0.05f);
             yield return new WaitForFixedUpdate();
         }
+        brakeParticles.Stop();
         brake = false;
     }
 
     private void SpawnRandomNpc () {
         index = Random.Range(0,npcSpawnPos.Length);
-        MasterPool.EjectNpc(npcSpawnPos[index] + transform.position);
+        masterPool.EjectNpc(npcSpawnPos[index] + transform.position);
     }
 
-    private void TriggerimNpc () {
-        foreach(npcCtrl ctrl in NearNpcs) {
+    private void TriggerimNpc ()
+    {
+        foreach (var ctrl in NearNpcs.OfType<npcCtrl>())
+        {
             ctrl.PlayerPizdesTvorit();
         }
     }
@@ -558,6 +567,6 @@ public class characterctrl : MonoBehaviour
 
     public Vector3 GetNpcSpawnPosition()
     {
-        return Random.Range(0, 100) > 50 ? npcSpawnPos[1] : npcSpawnPos[0];
+        return transform.position + (Random.Range(0, 100) > 50 ? npcSpawnPos[1] : npcSpawnPos[0]);
     }
 }

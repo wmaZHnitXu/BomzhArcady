@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartScreenCtrl : MonoBehaviour
+public class startScreenCtrl : MonoBehaviour
 {
     [SerializeField]
     private bool starting;
@@ -15,6 +15,9 @@ public class StartScreenCtrl : MonoBehaviour
     private GameObject[] canvases; //0 - меню 1 - интерфейс
     [SerializeField]
     private ParticleSystem particle;
+
+    private static readonly int Disable = Animator.StringToHash("disable");
+
     void Start()
     {
         characterctrl.it.SwitchSiting(true);
@@ -37,7 +40,7 @@ public class StartScreenCtrl : MonoBehaviour
     public void StartGame() {
         starting = true;
         foreach (Animator a in menuAnim)
-            a.SetTrigger("disable");
+            a.SetTrigger(Disable);
         canvases[1].SetActive(true);
         particle.Stop();
     } 

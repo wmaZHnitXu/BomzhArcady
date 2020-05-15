@@ -15,18 +15,18 @@ public class talkCtrl : MonoBehaviour
     private int answerCount;
     public int replId;
     private char[] charray;
-    private static characterctrl c;
+    private static characterctrl _c;
     [SerializeField]
     private GameObject talkButton;
     public static GameObject[] textObjects = new GameObject[4];
     public void StartDialog () {
         replId = 0;
         if (talkCanv == null) {
-            c = characterctrl.it;
-            talkCanv = c.answerObj;
-            allAnswTexts = c.answerTexts;
+            _c = characterctrl.it;
+            talkCanv = _c.answerObj;
+            allAnswTexts = _c.answerTexts;
         }
-        c.talker = this;
+        _c.talker = this;
         SetActiveButton(false);
         for (int i = 0; i < allAnswTexts.Length; i++) {
             textObjects[i] = allAnswTexts[i].gameObject;
@@ -46,12 +46,12 @@ public class talkCtrl : MonoBehaviour
         }
     }
     public void Answer () {
-        if (c.answerNumber < answerCount) {
+        if (_c.answerNumber < answerCount) {
         //System.Array.Reverse(answers[repliki[replId].answerCode].nextReplCode);
-        replId = answers[repliki[replId].answerCode].nextReplCode[c.answerNumber];
+        replId = answers[repliki[replId].answerCode].nextReplCode[_c.answerNumber];
         Debug.Log(replId.ToString());
         //System.Array.Reverse(answers[repliki[replId].answerCode].nextReplCode);
-        Debug.Log(c.answerNumber);
+        Debug.Log(_c.answerNumber);
         NextTalking();
         }
     }
@@ -71,7 +71,7 @@ public class talkCtrl : MonoBehaviour
         }
         //Каллбэк
         if (repliki[replId].questId != 0) {
-            scenarioCtrl.me.questContainer.dialogCallback(repliki[replId].questId);
+            scenarioCtrl.me.questContainer.DialogCallback(repliki[replId].questId);
             Debug.Log("Callback");
         }
         //Ответы.

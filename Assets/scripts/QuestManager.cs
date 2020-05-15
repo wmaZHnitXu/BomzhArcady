@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestManager : MonoBehaviour
+public class questManager : MonoBehaviour
 {
-    public static QuestManager me;
+    public static questManager me;
     public int quest;
     public int activePart;
     [SerializeField]
@@ -30,17 +30,17 @@ public class QuestManager : MonoBehaviour
             {
                 case 0:
                     if (Vector3.Distance(playerTrns.position,quests[quest][activePart].gotuda) < 0.5f) {
-                        partDone();
+                        PartDone();
                     }
                 break;
             }
         }
     }
-    public void partDone () {
+    public void PartDone () {
         if (activePart+1 != quests[quest].Length) {
             activePart++;
             qdescText.text = quests[quest][activePart].qdesc;
-            qpc.qs();
+            qpc.Qs();
         }
         else
         {

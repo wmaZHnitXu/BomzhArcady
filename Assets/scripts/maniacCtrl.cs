@@ -24,7 +24,7 @@ public class maniacCtrl : npcCtrl
         }
         if ((triggered & toPlayerDistance >= lostDistance) & !neponyatki) {
             neponyatki = true;
-            _neponyal = StartCoroutine(neponyal());
+            _neponyal = StartCoroutine(Neponyal());
         }
     }
     protected override void OnEnable() {
@@ -37,7 +37,7 @@ public class maniacCtrl : npcCtrl
     protected override void IdemSwitch(bool b) {
         if (idet != b) {
             if (hasForwardFacing & b) {
-                toSide();
+                ToSide();
             }
             foreach (Animator a in forIdem) {
                a.SetBool("idem",b);
@@ -45,7 +45,7 @@ public class maniacCtrl : npcCtrl
             idet = b;
         }
     }
-    protected override IEnumerator neponyal() {
+    protected override IEnumerator Neponyal() {
         //neponyatki = true;
         triggered = false;
         destination = reserveDest; //Дописать как он ходит рядом и растворяется
@@ -59,7 +59,7 @@ public class maniacCtrl : npcCtrl
         attackAnim.SetBool("triggered",triggered);
     }
     
-    public override void death() {
+    public override void Death() {
         gameObject.SetActive(false);
     }
     void PlayParticle () {

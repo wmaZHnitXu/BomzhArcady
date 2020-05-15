@@ -7,16 +7,16 @@ public class npcGoCtrl : MonoBehaviour
 {
     [SerializeField]
     private float speed;
-    public float target {
+    public float Target {
         get {
-            return _target;
+            return target;
         }
         set {
-            _target = value;
+            target = value;
             targetVector3 = new Vector3(value,transform.position.y,transform.position.z);
         }
     }
-    private float _target;
+    private float target;
     [SerializeField]
     private bool right;
     [SerializeField]
@@ -37,7 +37,7 @@ public class npcGoCtrl : MonoBehaviour
             motherRelativePos = transform.localPosition;
         startScale = transform.localScale;
         stopped = true;
-        target = 120;
+        Target = 120;
     }
 
     void FixedUpdate()

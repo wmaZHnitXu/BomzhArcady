@@ -11,7 +11,7 @@ public class itemCtrl : MonoBehaviour
     private bool buttonon;
     public byte type;
     public int money;
-    public ClickCallback cb;
+    public clickCallback cb;
     public byte id;
     public bool dead;
     [SerializeField]

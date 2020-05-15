@@ -67,7 +67,7 @@ public class mentiManagement : MonoBehaviour
                 break;
             }
     }
-    public void mentRip (mentCtrl ment) {
+    public void MentRip (mentCtrl ment) {
         Debug.Log("F, " + ment.gameObject.name);
         moiMenti.Remove(ment);
         if (moiMenti.Count == 0) {

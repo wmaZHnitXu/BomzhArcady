@@ -13,21 +13,21 @@ public class bulletCtrl : MonoBehaviour
     public byte hit = 2;
     public bool right;
     public bool laser;
-    public ChildRbInfo cri;
+    public childRbInfo cri;
     [SerializeField]
     private SpriteRenderer bulletRenderer;
     [SerializeField]
     private bool needRenderDelay;
 
-    void Start () {
+    private void Start () {
         if (!forPlayer)
             v.x = characterctrl.rotation ? speed : -speed;
         else
             v.x = right ? speed : -speed;
         targLayer = forPlayer ? 12 : 13;
         if (!laser) {
-        shell.SetParent(null);
-        bullet.SetParent(null);
+            shell.SetParent(null);
+            bullet.SetParent(null);
         }
         Destroy(bullet.gameObject,3f);
         Destroy(shell.gameObject,3f);
@@ -35,37 +35,36 @@ public class bulletCtrl : MonoBehaviour
         cri.loaded = true;
         cri.isLaser = laser;
         if (needRenderDelay)
-            StartCoroutine(startRender());
+            StartCoroutine(StartRender());
     }
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
         if (bullet != null)
-        bullet.Translate(v);
+            bullet.Translate(v);
     }
-    public void stack(Collider2D coll) {
-        if (coll.gameObject.layer == targLayer) {
-            if (forPlayer) {
-                characterctrl.Health -= hit;
-                characterctrl.it.AddHit();
-                characterctrl.rb.AddForce((characterctrl.me.position - bullet.position).normalized * 0.01f *  hit);
-                if (!laser)
+    public void Stack(Collider2D coll) {
+        if (coll.gameObject.layer != targLayer) return;
+        if (forPlayer) {
+            characterctrl.it.AddHit(hit);
+            characterctrl.rb.AddForce((characterctrl.me.position - bullet.position).normalized * (0.01f * hit));
+            if (!laser)
                 fxHub.GiveMeBlood(bullet.position);
-            }
-            else {
-                //Debug.Log(coll.name);
-                if (!laser)
-                    coll.GetComponent<hpBase>().addHit(hit,bullet.position);
-                else
-                    coll.GetComponent<hpBase>().addHit(hit);
-            }
-            if (!laser) {
-                Destroy(bullet.gameObject);
-                Destroy(shell.gameObject);
-                Destroy(gameObject);
-            }
         }
+        else {
+            //Debug.Log(coll.name);
+            if (!laser)
+                coll.GetComponent<hpBase>().AddHit(hit,bullet.position);
+            else
+                coll.GetComponent<hpBase>().AddHit(hit);
+        }
+
+        if (laser) return;
+        Destroy(bullet.gameObject);
+        Destroy(shell.gameObject);
+        Destroy(gameObject);
     }
-    IEnumerator startRender () {
+    IEnumerator StartRender () {
         bulletRenderer.enabled = false;
         yield return new WaitForSeconds(0.06f);
         bulletRenderer.enabled = true;

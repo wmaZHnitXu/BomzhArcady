@@ -1,20 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class hpBase : MonoBehaviour
 {
+    public string nameOfNpc;
     public int hp = 100;
-    public virtual void addHit(int hit) {
+    public int maxHp;
+    [SerializeField] public UnityEvent addHitEvent;
+    public virtual void AddHit(int hit) {
         hp -= hit;
     }
-    public virtual void addHit(int hit, Vector3 punchPos) {
+
+    protected void Start()
+    {
+        if (maxHp == 0) maxHp = hp;
+    }
+
+    public virtual void AddHit(int hit, Vector3 punchPos) {
         
     }
-    public virtual void death() {
+    public virtual void Death() {
 
     }
-    void OnParticleCollision () {
-        addHit(25);
+    void OnParticleCollision (GameObject other) {
+        AddHit(25);
     }
 }

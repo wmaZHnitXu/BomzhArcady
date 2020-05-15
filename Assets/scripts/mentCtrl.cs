@@ -66,14 +66,14 @@ public class mentCtrl : npcCtrl
             if (weaponEjected) {
                 weaponEjected = false;
                 weapon.enabled = false;
-                StartCoroutine(neponyal());
-                StartCoroutine(handSetDef());
+                StartCoroutine(Neponyal());
+                StartCoroutine(HandSetDef());
             }
         }
         if (investigation) {
             if (Mathf.Abs(dist) < 20f) {
                 investigation = false;
-                StartCoroutine(neponyal());
+                StartCoroutine(Neponyal());
             }
         }
     }
@@ -94,9 +94,9 @@ public class mentCtrl : npcCtrl
         armTrns.rotation = startQuatArm;
     }
     void OnDestroy () {
-        mentiManagement.me.mentRip(this);
+        mentiManagement.me.MentRip(this);
     }
-    private IEnumerator handSetDef () {
+    private IEnumerator HandSetDef () {
         while (armTrns.rotation != startQuatArm) {
             armTrns.rotation = Quaternion.RotateTowards(armTrns.rotation,startQuatArm,3f);
             yield return new WaitForFixedUpdate();

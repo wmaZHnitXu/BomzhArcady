@@ -38,7 +38,7 @@ public class npcTurret : hpBase
         TriggerToPlayer();
     }
 
-    IEnumerator shooting () {
+    IEnumerator Shooting () {
         triggered = true;
         while (triggered) {
             //Расстояние
@@ -75,6 +75,6 @@ public class npcTurret : hpBase
     }
     public void TriggerToPlayer () {
         targetTrns = characterctrl.me;
-        StartCoroutine(shooting());
+        StartCoroutine(Shooting());
     }
 }

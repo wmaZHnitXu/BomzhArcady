@@ -18,7 +18,7 @@ public class fxHub : MonoBehaviour
     public float hitTextSpread;
     private bool _shake;
     [SerializeField]
-    public bool shake {
+    public bool Shake {
         get {
             return _shake;
         }
@@ -26,7 +26,7 @@ public class fxHub : MonoBehaviour
             if (value) {
                 if (!_shake) {
                     _shake = true;
-                    StartCoroutine(shaker());
+                    StartCoroutine(Shaker());
                 }
                 else
                 {
@@ -42,6 +42,8 @@ public class fxHub : MonoBehaviour
     [SerializeField]
     private float shakeRadius;
 
+    private static readonly int Start1 = Animator.StringToHash("start");
+
     void Start () {
         camTrns = transform;
         me = this;
@@ -51,7 +53,7 @@ public class fxHub : MonoBehaviour
             hitTransforms[i] = hitTexts[i].gameObject.transform;
         }
         defCamPosition = camTrns.localPosition;
-        shake = true;
+        Shake = true;
         for (int i = 0; i < particlesForInit.Length; i++) {
             transforms[i] = particlesForInit[i].transform;
         }
@@ -68,25 +70,29 @@ public class fxHub : MonoBehaviour
     public void EjectHitText (int hit,Vector3 pos) {
         hitTexts[hitCounter].text = hit.ToString();
         hitTransforms[hitCounter].position = new Vector3(Random.Range(hitTextSpread,-hitTextSpread) + pos.x, Random.Range(hitTextSpread,-hitTextSpread) + pos.y,0);
-        hitAnims[hitCounter].SetTrigger("start");
+        hitAnims[hitCounter].SetTrigger(Start1);
         hitCounter++;
         if (hitCounter == hitTexts.Length)
             hitCounter = 0;
     }
     public void ShakeMe (float shk) {
         shakeRadius = shk;
-        shake = true;
+        Shake = true;
     }
-    IEnumerator shaker () {
+    IEnumerator Shaker () {
         while (_shake) {
             yield return new WaitForSeconds(0.02f);
             camVector = new Vector2(defCamPosition.x + Random.Range(shakeRadius,-shakeRadius),defCamPosition.x + Random.Range(shakeRadius,-shakeRadius));
             camTrns.localPosition = Vector2.Lerp(camVector,camTrns.localPosition,0.04f);
             shakeRadius -= shakeRadius / 10;   
             if (shakeRadius < 0.01f) {
-                shake = true;
+                Shake = true;
                 shakeRadius = 0;
             }
         }
+    }
+    public void FridgeGrounded (Vector3 particlePos) {
+        transforms[2].position = particlePos;
+        particlesForInit[2].Play();
     }
 }

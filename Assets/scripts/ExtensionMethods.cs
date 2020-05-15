@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ExtensionMethods
+public static class extensionMethods
 {
-    public static float squareDistance (this Vector3 v) {
-        return Mathf.Abs(v.x > v.y ? v.x : v.y);
+    public static float SquareDistance (this Vector3 v)
+    {
+        return Mathf.Abs(Mathf.Abs(v.x) > Mathf.Abs(v.y) ? v.x : v.y);
     }
 }

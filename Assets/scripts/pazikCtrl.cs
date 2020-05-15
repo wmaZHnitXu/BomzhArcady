@@ -31,7 +31,7 @@ public class pazikCtrl : carNpcCtrl
     private bool stopped;
     void Start () {
         destination = transform.position;
-        StartCoroutine(stop());
+        StartCoroutine(Stop());
         SwitchEnterExit(true);
     }
     public void EjectArcady () {
@@ -70,7 +70,7 @@ public class pazikCtrl : carNpcCtrl
         else
             countDown = countDown/3;
     }
-    IEnumerator stop () {
+    IEnumerator Stop () {
         stopped = true;
         door.SetBool("IsOpen",true);
         for (countDown = 20; countDown >= 0; countDown--) {
@@ -110,7 +110,7 @@ public class pazikCtrl : carNpcCtrl
                 speed = Mathf.Lerp(speed,0,0.2f);
                 if (speed < 0.01f)
                     if (!ejected) {
-                        stopRoutine = StartCoroutine(stop());
+                        stopRoutine = StartCoroutine(Stop());
                         ejected = true;
                     }
             }

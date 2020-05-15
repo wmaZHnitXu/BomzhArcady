@@ -148,10 +148,10 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 0.9472432, y: 0.94221085, z: 1, w: -0.02883922}
+    value: {x: 0.9525551, y: 0.9788445, z: 1, w: -0.02883922}
   gamma:
     overrideState: 1
-    value: {x: 0.82532215, y: 0.88263357, z: 1, w: -0.014419609}
+    value: {x: 0.7957836, y: 0.863988, z: 1, w: -0.014419609}
   gain:
     overrideState: 1
     value: {x: 0.93429595, y: 0.9883707, z: 1, w: -0.1441961}
@@ -1400,8 +1400,8 @@ MonoBehaviour:
     value: {fileID: 0}
     defaultState: 1
   dirtIntensity:
-    overrideState: 1
-    value: 0
+    overrideState: 0
+    value: 4.2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

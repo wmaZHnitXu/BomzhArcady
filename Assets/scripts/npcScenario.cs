@@ -17,8 +17,8 @@ public class npcScenario : MonoBehaviour
     private GameObject defNpc;
     [SerializeField]
     private GameObject myText;
-    private GameObject TextGameObjectInstance;
-    private Text TextInstance;
+    private GameObject textGameObjectInstance;
+    private Text textInstance;
     private Transform playerTrns;
     [SerializeField]
     private bool right = true;
@@ -33,13 +33,13 @@ public class npcScenario : MonoBehaviour
     {
         startScale = transform.localScale;
         playerTrns = characterctrl.me;
-        StartCoroutine(myUpdate());
-        TextGameObjectInstance = Instantiate(myText,new Vector3(transform.position.x,transform.position.y + 2,transform.position.z),Quaternion.identity,characterctrl.it.worldCanvas);
-        TextInstance = TextGameObjectInstance.GetComponent<Text>();
-        talker.said = TextInstance;
+        StartCoroutine(MyUpdate());
+        textGameObjectInstance = Instantiate(myText,new Vector3(transform.position.x,transform.position.y + 2,transform.position.z),Quaternion.identity,characterctrl.it.worldCanvas);
+        textInstance = textGameObjectInstance.GetComponent<Text>();
+        talker.said = textInstance;
     }
 
-    IEnumerator myUpdate () {
+    IEnumerator MyUpdate () {
         while (true) {
             yield return new WaitForSeconds(1);
             #region updateLogic
@@ -62,7 +62,7 @@ public class npcScenario : MonoBehaviour
                    if (Mathf.Abs(playerTrns.position.x - transform.position.x) <= maxApproximationDistance) {
                         if (state) {
                             state = false;
-                            sayGreetings();
+                            SayGreetings();
                             myBodys[0].SetActive(!state);
                             myBodys[1].SetActive(state);
                         }
@@ -80,11 +80,11 @@ public class npcScenario : MonoBehaviour
         }
     }
     void OnDestroy () {
-        if (TextGameObjectInstance != null) {
-            Destroy(TextGameObjectInstance,3f);
+        if (textGameObjectInstance != null) {
+            Destroy(textGameObjectInstance,3f);
         }
     }
-    void sayGreetings () {
+    void SayGreetings () {
         Debug.Log("said");
         talker.SayThis(greetings);
     }

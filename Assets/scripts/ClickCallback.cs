@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClickCallback : MonoBehaviour
+public class clickCallback : MonoBehaviour
 {
     public bool iskiosk;
     public itemCtrl parent;
