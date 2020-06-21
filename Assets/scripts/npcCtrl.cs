@@ -56,6 +56,8 @@ public class npcCtrl : hpBase, IHp
     private UnityAction detachMe;
     public bool bornByScript;
     public static readonly List<npcCtrl> AllNpcs = new List<npcCtrl>();
+    private Transform myCity;
+    [SerializeField] private float maxCityDistance = 50;
 
     private static readonly int Attack = Animator.StringToHash("attack");
     private static readonly int Def = Animator.StringToHash("def");
@@ -116,7 +118,7 @@ public class npcCtrl : hpBase, IHp
                 direction.x = 0;
                 IdemSwitch(false);
                 if (attack) {
-                    if (!characterctrl.it.dead) {
+                    if (!characterctrl.it.dead && Mathf.Abs(destination.position.x - myCity.position.x) < maxCityDistance) {
                         Attacking();
                     }
                     else
@@ -128,6 +130,8 @@ public class npcCtrl : hpBase, IHp
                 else {
                     if (!finalDestination)
                         reserveDest.position = new Vector3(transform.position.x + UnityEngine.Random.Range(30f,-30f),transform.position.y,transform.position.z);
+                        if (Mathf.Abs(reserveDest.position.x - myCity.position.x) > maxCityDistance) 
+                            reserveDest.position = new Vector3(myCity.position.x + UnityEngine.Random.Range(30f,-30f),transform.position.y,transform.position.z);
                 }
             }
             if (!stoped)
@@ -219,6 +223,7 @@ public class npcCtrl : hpBase, IHp
     }
     public override void Death() {
         if (!dead) {
+            base.Death();
             /* */gameObject.layer = 15; //dead
             Debug.Log("death + " + gameObject.name);
             rb.freezeRotation = false;
@@ -325,6 +330,16 @@ public class npcCtrl : hpBase, IHp
     }
     public void AllInit() { //Инициализация, вызывается при каждом включении объекта. Много всего.
     //Возврат переменных в исходное состояние.
+        if (myCity == null) {
+            float dist = 100000;
+            foreach (var g in GameObject.FindGameObjectsWithTag("city")) {
+                var iterationDist = Mathf.Abs(g.transform.position.x - transform.position.x);
+                if (iterationDist < dist) {
+                    dist = iterationDist;
+                    myCity = g.transform;
+                }
+            }
+        }
         speedMultipl = 1;
         canIdti = true;
         dead = false;

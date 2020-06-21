@@ -373,8 +373,8 @@ public class characterctrl : hpBase
     private IEnumerator PreAttackCd () {
         arm.SetTrigger(Attack1);
         yield return new WaitForSeconds(0.1f);
-        foreach (var b in NearNpcs) {
-                    if (Vector3.Distance(((MonoBehaviour)b).transform.position,melePos.position) < meleDistance) {
+        foreach (var b in NearNpcs) {//For юзай, псина
+                    if (Vector3.Distance(((MonoBehaviour)b).transform.position,melePos.position) < meleDistance) { 
                         b.AddHit(meleeDamage);
                         if (armBuff) {
                             b.AddHit(meleeDamage * 2);
@@ -444,12 +444,10 @@ public class characterctrl : hpBase
             fxHub.me.ShakeMe(rb.velocity.x * 0.005f);
             yield return new WaitForFixedUpdate();
         }
-        brakeParticles.Play();
         while (transform.rotation.eulerAngles.z != 0) {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.identity,0.05f);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.identity,0.5f);
             yield return new WaitForFixedUpdate();
         }
-        brakeParticles.Stop();
         brake = false;
     }
 

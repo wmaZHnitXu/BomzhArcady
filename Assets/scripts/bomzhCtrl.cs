@@ -21,10 +21,12 @@ public class bomzhCtrl : npcCtrl
     [SerializeField]
     private SpriteRenderer armRender;
 
-    
+    private void Start() {
+        base.Start();
+        BomzhConstruct(true);
+    }
     protected override void OnEnable() {
         AllInit();
-        BomzhConstruct(true);
     }
     protected void BomzhConstruct (bool i) {
         if (i) {

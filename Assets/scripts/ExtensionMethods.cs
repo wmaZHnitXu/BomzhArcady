@@ -8,4 +8,8 @@ public static class extensionMethods
     {
         return Mathf.Abs(Mathf.Abs(v.x) > Mathf.Abs(v.y) ? v.x : v.y);
     }
+    public static float SquareDistance (this Vector2 v)
+    {
+        return Mathf.Abs(Mathf.Abs(v.x) > Mathf.Abs(v.y) ? v.x : v.y);
+    }
 }

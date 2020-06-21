@@ -277,7 +277,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d492420eb40bea4699fbdf5b4376dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameOfNpc: 
   hp: 100
+  maxHp: 0
+  addHitEvent:
+    m_PersistentCalls:
+      m_Calls: []
   rb: {fileID: 8607090658925293278}
   speed: 70
   mstit: 1
@@ -290,6 +295,7 @@ MonoBehaviour:
   - {fileID: 8607090658533747887}
   - {fileID: 8607090660196663374}
   attack: 0
+  realisticPunchForce: 0
   reloaded: 1
   run: 0
   reloadTime: 1
@@ -324,6 +330,7 @@ MonoBehaviour:
   dead: 0
   wlPlus: 5
   bornByScript: 0
+  maxCityDistance: 50
   sit: 0
   friend: 0
   heads:
@@ -826,7 +833,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 83d8c0f04de854440ab422d28a10629e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3962264, g: 0.3753143, b: 0.25978997, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

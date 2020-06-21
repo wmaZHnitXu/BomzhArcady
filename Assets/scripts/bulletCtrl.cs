@@ -13,7 +13,7 @@ public class bulletCtrl : MonoBehaviour
     public byte hit = 2;
     public bool right;
     public bool laser;
-    public childRbInfo cri;
+    public ChildRbInfo cri;
     [SerializeField]
     private SpriteRenderer bulletRenderer;
     [SerializeField]

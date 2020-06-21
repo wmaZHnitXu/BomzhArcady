@@ -40,8 +40,14 @@ public class timeCtrl : MonoBehaviour
     [SerializeField] private int day;
     [SerializeField] private Animator nightRaidText;
     [SerializeField] private UnityAction twinerAct;
+    [SerializeField] private ParticleSystem nightSys;
+    public int enemyCount;
+    [SerializeField] private int maxEnemyCount;
+    public static timeCtrl me;
+    private bool sunIsDown;
     void Start()
     {
+        me = this;
         ses = new WaitForSeconds(timestep);
         StartCoroutine(TimeRecount());
     }
@@ -69,18 +75,19 @@ public class timeCtrl : MonoBehaviour
             }
             skySprite.color = timeColors[0] * multiplers[0] + timeColors[1] * multiplers[1] + timeColors[2] * multiplers[2] + timeColors[3] * multiplers[3] + timeColors[4] * multiplers[4];
             night = time < 300;
-            if (night & sunLight.intensity > 0.66f) {
-                sunLight.intensity = Mathf.Lerp(sunLight.intensity,0.65f,0.01f);
+            sunIsDown = time > 1350 || time < 300;
+            if (sunIsDown & sunLight.intensity > 0.66f) {
+                sunLight.intensity = Mathf.Lerp(sunLight.intensity,0.65f,0.02f);
             }
 
-            if (!night & sunLight.intensity < 1.59f)
+            if (!sunIsDown & sunLight.intensity < 1.59f)
             {
                 sunLight.intensity = Mathf.Lerp(sunLight.intensity, 1.6f, 0.01f);
             }
             switch (time) {
                 case 1400:
                     Debug.Log("NightAlert");
-                    NightAlert();
+                    NightAlert(false);
                 break;
             }
 
@@ -101,9 +108,13 @@ public class timeCtrl : MonoBehaviour
         Debug.Log("Raid Started");
         while (night)
         {
-            Instantiate(NpcRandomized(), characterctrl.it.GetNpcSpawnPosition(), Quaternion.identity);
+            if (enemyCount != maxEnemyCount) {
+                Instantiate(NpcRandomized(), characterctrl.it.GetNpcSpawnPosition(), Quaternion.identity);
+                enemyCount++;
+            }
             yield return new WaitForSeconds(UnityEngine.Random.Range(nights[day-1].frequency,nights[day-1].frequency * 2));
         }
+        NightAlert(true);
     }
 
     private GameObject NpcRandomized()
@@ -119,9 +130,16 @@ public class timeCtrl : MonoBehaviour
         }
         return nights[day-1].npcPrefab[resultId];
     }
-    public void NightAlert () {
-        twinerAct += NightAlertReturn;
-        retardedTwiner.me.CallAnimation(alarmTransform,new Vector2(0,-160), 0.1f, twinerAct, 2f);
+    public void NightAlert (bool end) {
+        twinerAct = new UnityAction(NightAlertReturn);
+        retardedTwiner.me.CallAnimation(alarmTransform,new Vector2(0,-160), 0.1f, twinerAct, 4f);
+        if (end) {
+            alarmText.text = "Наступает утро.";
+        }
+        else {
+            nightSys.Play();
+            alarmText.text = "Ночь " + (day+1).ToString(); //если сообщение будет появляться в полночь, то убрать
+        }
     }
     public void NightAlertReturn () {
         retardedTwiner.me.CallAnimation(alarmTransform,new Vector2(0,25), 0.1f, null, 2f);

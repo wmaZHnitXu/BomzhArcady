@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class musorCtrl : hpBase
 {
@@ -11,6 +10,10 @@ public class musorCtrl : hpBase
     private Animator a;
     private propBlastCtrl c;
     private bool dead;
+    public UnityAction deathEvent;
+    private void OnEnable() {
+        characterctrl.NearNpcs.Add(this);
+    }
    public override void AddHit(int hit) {
        if (!dead) {
        hp -= hit;
@@ -28,5 +31,10 @@ public class musorCtrl : hpBase
         a.SetTrigger("death");
         Destroy(gameObject,1f);
         dead = true;
+        if (deathEvent != null)
+            deathEvent();    
+   }
+   private void OnDestroy () {
+       characterctrl.NearNpcs.Remove(this);
    }
 }

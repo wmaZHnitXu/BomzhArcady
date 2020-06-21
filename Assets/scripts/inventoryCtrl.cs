@@ -47,7 +47,7 @@ public class inventoryCtrl : MonoBehaviour
         ctrl = characterctrl.it;
     }
 
-    public void AddItem(byte itemId) {
+    public bool AddItem(byte itemId) {
         bool added = false;
         for(byte i = 0; i < 4 & added == false; i++) {
             for(byte i2 = 0; i2 < 4 & added == false; i2++) {
@@ -60,10 +60,11 @@ public class inventoryCtrl : MonoBehaviour
             }
         }
         RenderInventory();
+        return added;
     }
-    public void AddItem(byte itemId, byte count) {
+    public bool AddItem(byte itemId, byte count) {
+        bool added = false;
         if (structs[itemId].type != 1) {
-            bool added = false;
             for(byte i = 0; i < 4 & added == false; i++) {
                 for(byte i2 = 0; i2 < 4 & added == false; i2++) {
                     if (items[i2,i,0] == itemId | items[i2,i,0] == 0) {
@@ -76,6 +77,7 @@ public class inventoryCtrl : MonoBehaviour
             }
         }
         RenderInventory();
+        return added;
     }
     public void RenderInventory () {
          FormatInventory();
@@ -148,20 +150,20 @@ public class inventoryCtrl : MonoBehaviour
         }
     }
     void OnMouseUp() {
-        if (structs[itemClickedId].type == 0 & isEnabled == false & itemClickedId != 0) {
-            characterctrl.Health = System.Convert.ToByte(structs[itemClickedId].health < 0 ? characterctrl.Health - System.Convert.ToByte(Mathf.Abs(structs[itemClickedId].health)) :  characterctrl.Health + System.Convert.ToByte(structs[itemClickedId].health));
-            if (characterctrl.Health > 100) {
-                characterctrl.Health = 100;
+        if (itemClickedId != 0 && isEnabled == false) {
+            switch (structs[itemClickedId].type) {
+                case 0:
+                    characterctrl.Health = System.Convert.ToByte(structs[itemClickedId].health < 0 ? characterctrl.Health - System.Convert.ToByte(Mathf.Abs(structs[itemClickedId].health)) :  characterctrl.Health + System.Convert.ToByte(structs[itemClickedId].health));
+                    characterctrl.Health = characterctrl.Health > 100 ? 100 : characterctrl.Health;
+                    characterctrl.eat += structs[itemClickedId].eat;
+                    characterctrl.eat = characterctrl.eat > 100 ? (byte)100 : characterctrl.eat;
+                    characterctrl.water += structs[itemClickedId].water;
+                    characterctrl.water = characterctrl.water > 100 ? (byte)100 : characterctrl.water;
+                    characterctrl.exp += structs[itemClickedId].exp;
+                break;
+                case 4:
+                break;
             }
-            characterctrl.eat += structs[itemClickedId].eat;
-            if (characterctrl.eat > 100) {
-                characterctrl.eat = 100;
-            }
-            characterctrl.water += structs[itemClickedId].water;
-            if (characterctrl.water > 100) {
-                characterctrl.water = 100;
-            }
-            characterctrl.exp += structs[itemClickedId].exp;
             items[invClickedId % 4,invClickedId / 4,1] -= 1;
             if (items[invClickedId % 4,invClickedId / 4,1] <= 0) {
                 items[invClickedId % 4,invClickedId / 4,0] = 0;

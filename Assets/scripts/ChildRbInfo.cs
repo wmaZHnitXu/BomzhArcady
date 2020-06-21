@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class childRbInfo : MonoBehaviour
+public class ChildRbInfo : MonoBehaviour
 {
     public bulletCtrl b;
     public bool loaded;

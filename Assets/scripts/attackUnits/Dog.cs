@@ -45,9 +45,10 @@ public class Dog : hpBase
     public override void AddHit(int hit)
     {
         hp -= hit;
+        hp = hp > 0 ? hp : 0;
         fxHub.GiveMeBlood(transform.position);
         enemyStats.me.ShowNpcStats(this);
-        if (hp <= 0 & !dead)
+        if (hp == 0 & !dead)
         {
             Death();
         }

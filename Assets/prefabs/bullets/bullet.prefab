@@ -7,61 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3070974643245854023, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: hit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3070974643245854023, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: bulletRenderer
-      value: 
-      objectReference: {fileID: 5867315835002739253}
-    - target: {fileID: 9026449554614217126, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026449554614217126, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026449554614217126, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.6817119
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026449554711047740, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.990566
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026449554711047740, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.5747152
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026449554711047740, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.91303813
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026449554711047740, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 9026449554711047740, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026449554711047741, guid: 8cc03c271d58b9a448a459f73f221347,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9026449555214052836, guid: 8cc03c271d58b9a448a459f73f221347,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -124,9 +69,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cc03c271d58b9a448a459f73f221347, type: 3}
---- !u!212 &5867315835002739253 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 9026449554711047740, guid: 8cc03c271d58b9a448a459f73f221347,
-    type: 3}
-  m_PrefabInstance: {fileID: 3181934569369908233}
-  m_PrefabAsset: {fileID: 0}

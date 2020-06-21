@@ -9,12 +9,13 @@ public struct itemStruct
     public int exp;
     public byte eat;
     public bool flip;
-    public byte type;
-    public byte weapid;
-    public string name;
-    public string descr;
+    public byte type; //Можно было бы переделать в enum, но мне ленб
     /* 0 - съедобный айтем
        1 - деньги
        2 - для квестов
-       3 - оружие */
+       3 - оружие
+       4 - устанавливаемые объекты */
+    public byte weapid; //Так же может использоваться для определения id префаба для постройки
+    public string name;
+    public string descr;
 }

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 57
   m_Sprite: {fileID: 21300000, guid: 254e287be362d21418510e28deb146c6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.618237, a: 1}
+  m_Color: {r: 1, g: 0.6817119, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 9026449554711047740}
   - component: {fileID: 1685479923954431597}
   - component: {fileID: 7057051548633028017}
-  - component: {fileID: 4919326626749541654}
+  - component: {fileID: 2705368877083080105}
   m_Layer: 0
   m_Name: body
   m_TagString: Untagged
@@ -123,7 +123,7 @@ Transform:
   m_GameObject: {fileID: 9026449554711047742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0944, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9026449555214052836}
   m_RootOrder: 0
@@ -146,7 +146,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e79c8f566df27154da8dd8566c4b63df, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,9 +166,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 57
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: e18aeecdf24c1ab42824fb8b0d56ce9c, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.36835456, a: 1}
+  m_Color: {r: 0.990566, g: 0.91303813, b: 0.5747152, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -225,7 +225,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.07472862, y: 0.01}
   m_EdgeRadius: 0
---- !u!114 &4919326626749541654
+--- !u!114 &2705368877083080105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,9 +289,9 @@ MonoBehaviour:
   shell: {fileID: 9026449554614217127}
   bullet: {fileID: 9026449554711047741}
   forPlayer: 1
-  hit: 55
+  hit: 1
   right: 0
   laser: 0
-  cri: {fileID: 4919326626749541654}
+  cri: {fileID: 2705368877083080105}
   bulletRenderer: {fileID: 9026449554711047740}
   needRenderDelay: 1

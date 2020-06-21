@@ -23,7 +23,6 @@ public abstract class hpBase : MonoBehaviour
         
     }
     public virtual void Death() {
-
     }
     void OnParticleCollision (GameObject other) {
         AddHit(25);
