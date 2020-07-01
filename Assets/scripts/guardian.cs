@@ -48,11 +48,11 @@ public class guardian : hpBase
 
                 targetPos = enemyTransform.position;
 
-                if (distanceToTarget < 0.5f && reloaded) {
+                if (distanceToTarget < 0.2f && reloaded) {
                     StartCoroutine(Punch());
                 }
                 if (enemyHp.hp <= 0) {
-                    DetachTarget();
+                    Chill();
                 }
             }
             //Движение к поинту
@@ -60,24 +60,26 @@ public class guardian : hpBase
                     right = targetPos.x > transform.position.x;
                     transform.localScale = right ? startScale : new Vector3(-startScale.x,startScale.y,startScale.z);
                 }
-                if (walkingCheck((distanceToTarget = Mathf.Abs(targetPos.x - transform.position.x)) > 0.3f)) {
+                if (walkingCheck((distanceToTarget = Mathf.Abs(targetPos.x - transform.position.x)) > 0.5f)) {
                     rb.velocity = new Vector2(right ? speed : -speed, rb.velocity.y);
             }
             yield return null;
         }
     }
     private IEnumerator ChillingPosUpdate () {
+        Debug.Log("drop");
         while (true) {
             targetPos = chillPos = new Vector3(basePosX + Random.Range(-10f,10f),0,0); //Меняй на рандом с привязкой к дефпосикс P.s. Заменил, и че дальше?
             yield return new WaitForSeconds(Random.Range(2f,5f));
         }
     }
     private IEnumerator Searching () {
+        chillingPosRoutine = StartCoroutine(ChillingPosUpdate());
         while (enemyHp == null) {
                 float dist = triggerDistance; //not bruh anymore
                 foreach (hpBase target in characterctrl.NearNpcs) {
                     float newDist = Vector3.SqrMagnitude(target.transform.position - transform.position);
-                    if (dist > newDist) {
+                    if (dist > newDist && target.hp != 0) {
                         dist = newDist;
                         enemyHp = target;
                         enemyTransform = enemyHp.transform;
@@ -93,14 +95,9 @@ public class guardian : hpBase
         yield return new WaitForSeconds(punchCd);
         reloaded = true;
     }
-    public void DetachTarget () {
+    public void Chill () {
         enemyHp = null;
         enemyTransform = null;
-        attacking = false;
-        Chill();
-    }
-    public void Chill () {
-        chillingPosRoutine = StartCoroutine(ChillingPosUpdate());
         StartCoroutine(Searching());
         attacking = false;
     }

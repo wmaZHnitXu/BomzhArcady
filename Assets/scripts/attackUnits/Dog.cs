@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Channels;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-using Random = System.Random;
-
 public class Dog : hpBase
 {
     private Transform target;
@@ -61,8 +55,9 @@ public class Dog : hpBase
         characterctrl.NearNpcs.Add(this);
     }
 
-    private void Start()
+    private new void Start()
     {
+        base.Start();
         if (rb == null)
         {
             rb = gameObject.GetComponent<Rigidbody2D>();

@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class humanEnemy : hpBase
 {
-    private Transform target;
-    private hpBase targetHp;
+    [SerializeField] private Transform target;
+    [SerializeField] private hpBase targetHp;
     private bool right = true;
     [SerializeField] private float dist;
+    [SerializeField] private float reloadTime = 1;
     private Rigidbody2D rb;
 
     private bool Right
@@ -22,20 +24,29 @@ public class humanEnemy : hpBase
     }
 
     private bool walk;
-    [SerializeField] private Animator legs;
+    [SerializeField] private Animator animator;
     private bool dead;
     private Vector3 startScale;
+    public float walkingSpeed;
     [SerializeField] private float movingSpeed;
     private static readonly int Idem = Animator.StringToHash("idem");
     private bool landed;
     [SerializeField] private int punch;
-    
-
-    public int GetHp()
-    {
-        return hp;
+    [SerializeField] private bool reloaded;
+    private int HashedPunch;
+    private int HashedIdem;
+    private bool _isWalking;
+    public bool isWalking {
+        get => _isWalking;
+        private set {
+            if (value != _isWalking) {
+                animator.SetBool(HashedIdem, value);
+                _isWalking = value;
+            }
+        }
     }
-
+    [SerializeField] private bool deadInside;
+    
     public override void AddHit(int hit)
     {
         hp -= hit;
@@ -52,30 +63,46 @@ public class humanEnemy : hpBase
         movingSpeed = movingSpeed + UnityEngine.Random.Range(0.5f, -0.5f) * movingSpeed;
         gameObject.layer = 13;
         characterctrl.NearNpcs.Add(this);
+        if (target == null)
+        {
+            //Думаю, так быстрее, чем через .transform
+            target = characterctrl.me;
+            targetHp = characterctrl.it;
+        }
     }
 
-    private void Start()
+    private new void Start()
     {
+        base.Start();
+        HashedPunch = Animator.StringToHash("punch");
+        HashedIdem = Animator.StringToHash("idem");
         if (rb == null)
         {
             rb = gameObject.GetComponent<Rigidbody2D>();
         }
         startScale = transform.localScale;
-        if (target == null)
-        {
-            target = characterctrl.me;
-            targetHp = characterctrl.it;
-        }
-
-        //StartCoroutine(LifeTime());
+        //StartCoroutine(LifeTime()) Эксперимент
     }
 
     private void FixedUpdate()
     {
-        
+        if (dead || deadInside) return;
+
+        if (targetHp != null && targetHp.hp > 0) {
+            dist = target.position.x - transform.position.x;
+            Right = dist > 0;
+            if (isWalking = Mathf.Abs(dist) > 0.5f) rb.velocity = new Vector3(Right ? walkingSpeed : -walkingSpeed ,rb.velocity.y,0);
+            else {
+                if (Mathf.Abs(rb.velocity.x) <= walkingSpeed) rb.velocity = new Vector3(0 ,rb.velocity.y,0);
+                if (reloaded) StartCoroutine(Punch());
+            }
+        }
+        else {
+            SetTarget(FindObjectOfType<guardian>());
+        }
     }
 
-    private void NobodyWillSee()
+    private void NobodyWillSee() //???
     {
         landed = true;
     }
@@ -83,6 +110,14 @@ public class humanEnemy : hpBase
     private void OnDisable()
     {
         characterctrl.NearNpcs.Remove(this);
+    }
+    protected virtual IEnumerator Punch() {
+        reloaded = false;
+        animator.SetTrigger(HashedPunch);
+        yield return new WaitForSeconds(0.5f);
+        targetHp.AddHit(punch,transform.position);
+        yield return new WaitForSeconds(reloadTime);
+        reloaded = true;
     }
 
     public override void Death()
@@ -93,5 +128,14 @@ public class humanEnemy : hpBase
         gameObject.layer = 15;
         leftBar.AddLine("Гопник издох");
         dead = true;
+    }
+    
+    public void SetTarget (hpBase target) {
+        if (target == null) {
+            deadInside = true;
+            return;
+        }
+        targetHp = target;
+        this.target = target.transform;
     }
 }

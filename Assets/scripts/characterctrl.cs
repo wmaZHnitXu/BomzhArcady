@@ -22,6 +22,7 @@ public class characterctrl : hpBase
        get => _health;
        set {
            _health = value;
+           it.hp = value; //Я еблан
            it.CheckHp();
        }
    }
@@ -157,7 +158,7 @@ public class characterctrl : hpBase
         it = this;
         ResetCam();
         meleForce = 50;
-        me = gameObject.transform;
+        me = transform;
         rotation = true;
         rb = gameObject.GetComponent<Rigidbody2D>();
         Defaultinit();
@@ -169,10 +170,6 @@ public class characterctrl : hpBase
         siting = true;
     }
 
-    public int GetHp()
-    {
-        return Health;
-    }
     private void FixedUpdate()
     {
         if (!dead)  {//ctrl
@@ -421,9 +418,15 @@ public class characterctrl : hpBase
     public override void AddHit (int hp)
     {
         Health -= hp;
-        StartCoroutine(Stopping());
+        if (hp >= 15) {
+            fxHub.GiveMeBlood(transform.position);
+            StartCoroutine(Stopping());
+        }
     }
-
+    public override void AddHit(int hit, Vector3 punchPos) {
+        AddHit(hit);
+        rb.velocity = rb.velocity + (Vector2)(transform.position - punchPos).normalized;
+    }
     private IEnumerator Stopping () {
         if (stopped != true) {
             speed = speed * 0.5f;
@@ -504,7 +507,7 @@ public class characterctrl : hpBase
         }
     }
 
-    private void Death() {
+    public override void Death() {
         dead = true;
         rb.freezeRotation = false;
         gameObject.layer = 15;
