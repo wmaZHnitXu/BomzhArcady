@@ -26,9 +26,9 @@ TagManager:
   - vehicle
   - arkadyObstacle
   - npcObstacle
-  - 
-  - 
-  - 
+  - enemyBullet
+  - friendlyBullet
+  - bird
   - 
   - 
   - 
