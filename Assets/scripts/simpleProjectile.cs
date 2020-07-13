@@ -10,5 +10,6 @@ public class simpleProjectile : MonoBehaviour
             var hp = col.gameObject.GetComponent<hpBase>();
             hp.AddHit(hit);
         }
+        transform.position = new Vector2(-999,-999);
     }
 }

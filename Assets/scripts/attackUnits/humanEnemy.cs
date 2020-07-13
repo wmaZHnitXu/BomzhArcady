@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class humanEnemy : hpBase
+public class humanEnemy : EnemyHp
 {
     [SerializeField] private Transform target;
     [SerializeField] private hpBase targetHp;
     private bool right = true;
     [SerializeField] private float dist;
     [SerializeField] private float reloadTime = 1;
-    private Rigidbody2D rb;
-
     private bool Right
     {
         get => right;
@@ -25,7 +23,6 @@ public class humanEnemy : hpBase
 
     private bool walk;
     [SerializeField] private Animator animator;
-    private bool dead;
     private Vector3 startScale;
     public float walkingSpeed;
     [SerializeField] private float movingSpeed;
@@ -47,17 +44,6 @@ public class humanEnemy : hpBase
     }
     [SerializeField] private bool deadInside;
     
-    public override void AddHit(int hit)
-    {
-        hp -= hit;
-        fxHub.GiveMeBlood(transform.position);
-        enemyStats.me.ShowNpcStats(this);
-        if (hp <= 0 & !dead)
-        {
-            Death();
-        }
-    }
-
     private void OnEnable()
     {
         movingSpeed = movingSpeed + UnityEngine.Random.Range(0.5f, -0.5f) * movingSpeed;
@@ -128,6 +114,7 @@ public class humanEnemy : hpBase
         gameObject.layer = 15;
         leftBar.AddLine("Гопник издох");
         dead = true;
+        timeCtrl.me.enemyCount--;
     }
     
     public void SetTarget (hpBase target) {

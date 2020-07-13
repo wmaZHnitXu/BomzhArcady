@@ -10,7 +10,7 @@ public class kioskCtrl : MonoBehaviour
     [SerializeField]
     protected GameObject button;
     public int price;
-    protected clickCallback call;
+    protected ClickCallback call;
     [SerializeField]
     protected bool buttonOn;
     [SerializeField]

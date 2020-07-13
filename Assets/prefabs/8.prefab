@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iskiosk: 0
-  parent: {fileID: 6323602692251685506}
+  parent: {fileID: 0}
   kiosk: {fileID: 0}
 --- !u!61 &7809927526989778597
 BoxCollider2D:
@@ -152,7 +152,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -206,6 +206,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

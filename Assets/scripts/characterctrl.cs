@@ -150,8 +150,7 @@ public class characterctrl : hpBase
         this.phone = phone;
         this.normalZRot = normalZRot;
     }
-
-
+    
     private void Awake()
     {
         //Application.targetFrameRate = 60;

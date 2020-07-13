@@ -7,11 +7,28 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6177138496306451988, guid: afebf1f6be33c004c832821589f39e51,
+    - target: {fileID: 3083728430964670965, guid: afebf1f6be33c004c832821589f39e51,
         type: 3}
-      propertyPath: m_Name
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 372595c781ae9ee4687b4d8ad24493d5,
+        type: 3}
+    - target: {fileID: 3288248224336459094, guid: afebf1f6be33c004c832821589f39e51,
+        type: 3}
+      propertyPath: type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288248224336459094, guid: afebf1f6be33c004c832821589f39e51,
+        type: 3}
+      propertyPath: id
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 3634501387813390153, guid: afebf1f6be33c004c832821589f39e51,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7d06177b48a29894585d8b5f80927319,
+        type: 3}
     - target: {fileID: 4035985387823891114, guid: afebf1f6be33c004c832821589f39e51,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,27 +84,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3288248224336459094, guid: afebf1f6be33c004c832821589f39e51,
+    - target: {fileID: 4888634876013343632, guid: afebf1f6be33c004c832821589f39e51,
         type: 3}
-      propertyPath: type
-      value: 3
+      propertyPath: m_Mass
+      value: 0.3
       objectReference: {fileID: 0}
-    - target: {fileID: 3288248224336459094, guid: afebf1f6be33c004c832821589f39e51,
+    - target: {fileID: 6177138496306451988, guid: afebf1f6be33c004c832821589f39e51,
         type: 3}
-      propertyPath: id
-      value: 16
+      propertyPath: m_Name
+      value: 16 Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 3083728430964670965, guid: afebf1f6be33c004c832821589f39e51,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 372595c781ae9ee4687b4d8ad24493d5,
-        type: 3}
-    - target: {fileID: 3634501387813390153, guid: afebf1f6be33c004c832821589f39e51,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 7d06177b48a29894585d8b5f80927319,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afebf1f6be33c004c832821589f39e51, type: 3}

@@ -47,7 +47,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoPick: 0
   distance: 0
-  button: {fileID: 0}
+  buttonon: 0
   type: 0
   money: 0
   cb: {fileID: 7805832276942978037}
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iskiosk: 0
-  parent: {fileID: 7543349467152898487}
+  parent: {fileID: 0}
   kiosk: {fileID: 0}
 --- !u!114 &6424696446194547603
 MonoBehaviour:
@@ -152,6 +152,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

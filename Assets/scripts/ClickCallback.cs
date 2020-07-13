@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class clickCallback : MonoBehaviour
+public class ClickCallback : MonoBehaviour
 {
     public bool iskiosk;
     public itemCtrl parent;
@@ -11,6 +11,9 @@ public class clickCallback : MonoBehaviour
 
    protected void OnMouseDown () {
        down = true; 
+   }
+   void Start() {
+       if (parent == null && kiosk == null) parent = GetComponent<itemCtrl>();
    }
    void OnMouseOver () {
        if (!iskiosk) {

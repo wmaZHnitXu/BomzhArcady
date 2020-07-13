@@ -11,15 +11,19 @@ public class itemCtrl : MonoBehaviour
     private bool buttonon;
     public byte type;
     public int money;
-    public clickCallback cb;
+    public ClickCallback cb;
     public byte id;
     public bool dead;
     [SerializeField]
     private Rigidbody2D rb;
     public float speed = 4f;
     public Material mat;
+    public static List<Transform> itemTransforms = new List<Transform>();
+    public static List<itemCtrl> controls = new List<itemCtrl>();
     void Start()
     {
+        itemTransforms.Add(transform);
+        controls.Add(this);
         distance = 4;
         if (mat == null) {
             mat = transform.GetChild(0).GetComponent<SpriteRenderer>().material;
@@ -30,10 +34,6 @@ public class itemCtrl : MonoBehaviour
         player = characterctrl.me;
         buttonon = false;
         mat.SetFloat("_OutlineThickness",0);
-        touchCtrl.me.itemCtrls.Add(this);
-        touchCtrl.me.itemTrns.Add(transform);
-        bomzhCtrl.itemTransforms.Add(transform);
-
         speed = 10f;
     }
     void Update()
@@ -99,6 +99,6 @@ public class itemCtrl : MonoBehaviour
         }
     }
     void OnDestroy () {
-        bomzhCtrl.itemTransforms.Remove(transform);
+        itemTransforms.Remove(transform);
     }
 }

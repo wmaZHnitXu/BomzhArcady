@@ -13,7 +13,7 @@ public class bomzhCtrl : npcCtrl
     public Transform constructor;
     public int head;
     public int body;
-    public static List<Transform> itemTransforms = new List<Transform>();
+    public static List<Transform> itemTransforms;
     public Color[] colors;
     [SerializeField]
     private SpriteRenderer inHandItemRenderer;
@@ -21,7 +21,8 @@ public class bomzhCtrl : npcCtrl
     [SerializeField]
     private SpriteRenderer armRender;
 
-    private void Start() {
+    private new void Start() {
+        itemTransforms = itemCtrl.itemTransforms;
         base.Start();
         BomzhConstruct(true);
     }

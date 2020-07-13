@@ -20,6 +20,7 @@ public class bulletCtrl : MonoBehaviour
     private bool needRenderDelay;
 
     private void Start () {
+        bullet.gameObject.layer = forPlayer ? 19 : 20;
         if (!forPlayer)
             v.x = characterctrl.rotation ? speed : -speed;
         else
@@ -44,21 +45,13 @@ public class bulletCtrl : MonoBehaviour
             bullet.Translate(v);
     }
     public void Stack(Collider2D coll) {
-        if (coll.gameObject.layer != targLayer) return;
-        if (forPlayer) {
-            characterctrl.it.AddHit(hit);
-            characterctrl.rb.AddForce((characterctrl.me.position - bullet.position).normalized * (0.01f * hit));
-            if (!laser)
-                fxHub.GiveMeBlood(bullet.position);
+        Rigidbody2D rb = coll.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.AddForce((bullet.position - characterctrl.me.position).normalized * (1f * hit));
+        hpBase hp = coll.GetComponent<hpBase>();
+        if (hp != null) {
+            hp.AddHit(hit, bullet.position);
         }
-        else {
-            //Debug.Log(coll.name);
-            if (!laser)
-                coll.GetComponent<hpBase>().AddHit(hit,bullet.position);
-            else
-                coll.GetComponent<hpBase>().AddHit(hit);
-        }
-
+        if (coll.gameObject.layer == 11) fxHub.me.GimmeParticles(particleType.DirtSplash, bullet.position);
         if (laser) return;
         Destroy(bullet.gameObject);
         Destroy(shell.gameObject);

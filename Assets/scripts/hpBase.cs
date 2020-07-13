@@ -11,6 +11,7 @@ public abstract class hpBase : MonoBehaviour
     public int maxHp;
     [SerializeField] public UnityEvent addHitEvent;
     public virtual void AddHit(int hit) {
+        addHitEvent.Invoke();
         hp -= hit;
     }
 
@@ -20,11 +21,19 @@ public abstract class hpBase : MonoBehaviour
     }
 
     public virtual void AddHit(int hit, Vector3 punchPos) {
-        
+        AddHit(hp);
     }
     public virtual void Death() {
     }
     void OnParticleCollision (GameObject other) {
         AddHit(25);
+    }
+    public virtual void Heal (int healAmmount) {
+        if (hp == maxHp) return;
+        fxHub.me.GimmeParticles(particleType.Regen, transform.position);
+        int oldhp = hp;
+        hp += healAmmount;
+        if (hp > maxHp) hp = maxHp;
+        fxHub.me.EjectHitText(hp - oldhp, transform.position, true);
     }
 }

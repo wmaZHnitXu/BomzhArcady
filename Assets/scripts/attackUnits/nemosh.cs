@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class nemosh : hpBase
+public class nemosh : EnemyHp
 {
-    protected bool _right = true;
+    [SerializeField] protected bool _right = true;
     public bool Right {
         get => _right;
         set {
             if (_right != value) {
-                transform.localScale = new Vector3(startScale.x, startScale.y, startScale.z);
+                transform.localScale = new Vector3(value ? startScale.x : -startScale.x , startScale.y, startScale.z);
                 _right = value;
             }
         }
     }
     protected Vector3 startScale;
-    public static List<hpWithTransform> nemoshi = new List<hpWithTransform>();
-    public nemosh() {
-        nemoshi.Add(new hpWithTransform(transform, this));
+    public static List<nemoshWithTransform> nemoshi = new List<nemoshWithTransform>();
+    new protected void Start() {
+        base.Start();
+        characterctrl.NearNpcs.Add(this);
+        nemoshi.Add(new nemoshWithTransform(transform, this));
         startScale = transform.localScale;
     }
     public virtual void OnGrab () {
@@ -27,11 +29,11 @@ public class nemosh : hpBase
 
     }
 }
-public struct hpWithTransform {
-    Transform transform;
-    hpBase hp;
-    public hpWithTransform(Transform t, hpBase h) {
+public struct nemoshWithTransform {
+    public Transform transform;
+    public nemosh nemosh;
+    public nemoshWithTransform(Transform t, nemosh h) {
         transform = t;
-        hp = h;
+        nemosh = h;
     }
 }

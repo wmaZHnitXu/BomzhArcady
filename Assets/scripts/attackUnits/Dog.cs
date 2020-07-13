@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
-public class Dog : hpBase
+public class Dog : EnemyHp
 {
     private Transform target;
     private hpBase targetHp;
     private bool right = true;
     [SerializeField] private float dist;
-    private Rigidbody2D rb;
-
     private bool Right
     {
         get => right;
@@ -23,7 +21,6 @@ public class Dog : hpBase
 
     private bool walk;
     [SerializeField] private Animator legs;
-    private bool dead;
     private Vector3 startScale;
     [SerializeField] private float movingSpeed;
     private static readonly int Idem = Animator.StringToHash("idem");
@@ -35,19 +32,6 @@ public class Dog : hpBase
     {
         return hp;
     }
-
-    public override void AddHit(int hit)
-    {
-        hp -= hit;
-        hp = hp > 0 ? hp : 0;
-        fxHub.GiveMeBlood(transform.position);
-        enemyStats.me.ShowNpcStats(this);
-        if (hp == 0 & !dead)
-        {
-            Death();
-        }
-    }
-
     private void OnEnable()
     {
         movingSpeed = movingSpeed + UnityEngine.Random.Range(0.5f, -0.5f) * movingSpeed;
@@ -132,5 +116,6 @@ public class Dog : hpBase
         gameObject.layer = 15;
         leftBar.AddLine("Псина скончалась");
         dead = true;
+        timeCtrl.me.enemyCount--;
     }
 }

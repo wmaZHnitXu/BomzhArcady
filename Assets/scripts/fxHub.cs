@@ -41,7 +41,6 @@ public class fxHub : MonoBehaviour
     private Vector3 defCamPosition;
     [SerializeField]
     private float shakeRadius;
-
     private static readonly int Start1 = Animator.StringToHash("start");
 
     void Start () {
@@ -67,7 +66,8 @@ public class fxHub : MonoBehaviour
         me.transforms[1].position = pos;
         me.particlesForInit[1].Play();
     }
-    public void EjectHitText (int hit,Vector3 pos) {
+    public void EjectHitText (int hit, Vector3 pos, bool heal = false) {
+        hitTexts[hitCounter].color = heal ? Color.green : Color.red;
         hitTexts[hitCounter].text = hit.ToString();
         hitTransforms[hitCounter].position = new Vector3(Random.Range(hitTextSpread,-hitTextSpread) + pos.x, Random.Range(hitTextSpread,-hitTextSpread) + pos.y,0);
         hitAnims[hitCounter].SetTrigger(Start1);
@@ -91,8 +91,21 @@ public class fxHub : MonoBehaviour
             }
         }
     }
+    
     public void FridgeGrounded (Vector3 particlePos) {
         transforms[2].position = particlePos;
         particlesForInit[2].Play();
     }
+    public void GimmeParticles (particleType type, Vector3 particlePos) {
+        transforms[(int)type].position = particlePos;
+        particlesForInit[(int)type].Play();
+    }
+}
+ public enum particleType : int {
+        Blood,
+        BloodExplosion,
+        MetalScraps,
+        Regen,
+        DirtSplash,
+        SmallSmoke
 }

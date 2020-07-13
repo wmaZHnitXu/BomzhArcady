@@ -17,8 +17,8 @@ public class touchCtrl : MonoBehaviour
     public bool down;
     public bool right;
     Touch t;
-    public List<Transform> itemTrns = new List<Transform>();
-    public List <itemCtrl> itemCtrls = new List<itemCtrl>();
+    public List<Transform> itemTrns;
+    public List <itemCtrl> itemCtrls;
     public Vector2 pickRad;
 
     private void Awake () {
@@ -26,11 +26,13 @@ public class touchCtrl : MonoBehaviour
     }
 
     private void Start () {
+        itemCtrls = itemCtrl.controls;
+        itemTrns = itemCtrl.itemTransforms;
         scrW = Screen.width;
         scrH = Screen.height;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         foreach (var t in Input.touches) {
             right = false;
@@ -57,10 +59,9 @@ public class touchCtrl : MonoBehaviour
             }
             if (!right) {
                 for (int i = 0; i < itemTrns.Count; i++) {
-                    if (Mathf.Abs(itemTrns[i].position.x - Camera.main.ScreenToWorldPoint(t.position).x) <= pickRad.x & Mathf.Abs(itemTrns[i].position.y - Camera.main.ScreenToWorldPoint(t.position).y) <= pickRad.y)
+                    if (Mathf.Abs(itemTrns[i].position.x - Camera.main.ScreenToWorldPoint(t.position).x) 
+                    <= pickRad.x & Mathf.Abs(itemTrns[i].position.y - Camera.main.ScreenToWorldPoint(t.position).y) <= pickRad.y)
                         itemCtrls[i].CallBack();
-                    itemCtrls.RemoveAt(i);
-                    itemTrns.RemoveAt(i);
                 }
             }
             //Порядок соблюдать.

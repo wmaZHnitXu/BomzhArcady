@@ -219,6 +219,7 @@ public class inventoryCtrl : MonoBehaviour
         clickPanel.transform.position = new Vector3(100f,100f,100f);
     }
     public void WeaponInHand () {
+        DeactivateWeapon();
         inHandImg.sprite = null;
         withWeapon = true;
         ctrl.wsprites = weapons[structs[itemClickedId].weapid].sprite;
