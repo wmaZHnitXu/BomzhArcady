@@ -6,8 +6,10 @@ using UnityEngine.Events;
 
 public abstract class hpBase : MonoBehaviour
 {
+    public bool isStatic;
     public string nameOfNpc;
     public int hp = 100;
+    public int Id;
     public int maxHp;
     [SerializeField] public UnityEvent addHitEvent;
     public virtual void AddHit(int hit) {

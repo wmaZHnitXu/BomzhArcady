@@ -150,7 +150,7 @@ public class inventoryCtrl : MonoBehaviour
         }
     }
     void OnMouseUp() {
-        if (itemClickedId != 0 && isEnabled == false) {
+        if (structs[inHandItem].type == 0 && inHandItem != 0 && isEnabled == false) {
             switch (structs[itemClickedId].type) {
                 case 0:
                     characterctrl.Health = System.Convert.ToByte(structs[itemClickedId].health < 0 ? characterctrl.Health - System.Convert.ToByte(Mathf.Abs(structs[itemClickedId].health)) :  characterctrl.Health + System.Convert.ToByte(structs[itemClickedId].health));
@@ -201,6 +201,7 @@ public class inventoryCtrl : MonoBehaviour
             }
         }
         RenderInventory();
+        itemClickedId = 0;
     }
     public void FormatInventory() {
         for (int id = 1; id < 16; id++) {

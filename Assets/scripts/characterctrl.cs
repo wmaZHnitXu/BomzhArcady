@@ -154,6 +154,7 @@ public class characterctrl : hpBase
     private void Awake()
     {
         //Application.targetFrameRate = 60;
+        onPc = SystemInfo.deviceType == DeviceType.Desktop;
         it = this;
         ResetCam();
         meleForce = 50;
@@ -250,7 +251,6 @@ public class characterctrl : hpBase
                        shoot = false;
                }
                else {
-                   Debug.Log(w.magnitude.ToString(CultureInfo.InvariantCulture));
                    if (w.magnitude >= 1 && onPc || tCtrl.down)
                        shoot = true;
                }

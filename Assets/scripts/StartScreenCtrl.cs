@@ -15,6 +15,8 @@ public class startScreenCtrl : MonoBehaviour
     private GameObject[] canvases; //0 - меню 1 - интерфейс
     [SerializeField]
     private ParticleSystem particle;
+    [SerializeField] private Animator settingsPanelAnim;
+    private bool SettingsPulled = false;
 
     private static readonly int Disable = Animator.StringToHash("disable");
 
@@ -43,5 +45,10 @@ public class startScreenCtrl : MonoBehaviour
             a.SetTrigger(Disable);
         canvases[1].SetActive(true);
         particle.Stop();
-    } 
+        settingsPanelAnim.SetBool("pull", false);
+    }
+    public void SwitchSettings () {
+        SettingsPulled = !SettingsPulled;
+        settingsPanelAnim.SetBool("pull", SettingsPulled);
+    }
 }

@@ -37,7 +37,7 @@ public class timeCtrl : MonoBehaviour
     private RectTransform alarmTransform;
     private bool bossEjected;
     [SerializeField] private npcSpawnStructure[] nights;
-    [SerializeField] private int day;
+    [SerializeField] public int day;
     [SerializeField] private Animator nightRaidText;
     [SerializeField] private UnityAction twinerAct;
     [SerializeField] private ParticleSystem nightSys;

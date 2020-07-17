@@ -19,7 +19,7 @@ public class touchCtrl : MonoBehaviour
     Touch t;
     public List<Transform> itemTrns;
     public List <itemCtrl> itemCtrls;
-    public Vector2 pickRad;
+    public float pickRad;
 
     private void Awake () {
         me = this;
@@ -59,8 +59,7 @@ public class touchCtrl : MonoBehaviour
             }
             if (!right) {
                 for (int i = 0; i < itemTrns.Count; i++) {
-                    if (Mathf.Abs(itemTrns[i].position.x - Camera.main.ScreenToWorldPoint(t.position).x) 
-                    <= pickRad.x & Mathf.Abs(itemTrns[i].position.y - Camera.main.ScreenToWorldPoint(t.position).y) <= pickRad.y)
+                    if ((itemTrns[i].position - Camera.main.ScreenToWorldPoint(t.position)).SquareDistance() <= pickRad)
                         itemCtrls[i].CallBack();
                 }
             }
@@ -84,6 +83,6 @@ public class touchCtrl : MonoBehaviour
             joystickRight[0].position = chistilishe;
             joystickRight[1].position = chistilishe;
         }
-        textUp.text = touchStart.Count.ToString() + Input.touchCount.ToString() + "_" + scrH.ToString(CultureInfo.InvariantCulture) + "x" + scrW.ToString(CultureInfo.InvariantCulture) + " stick:" + rightStick.ToString() + " Fps:" + (1f / Time.fixedUnscaledDeltaTime).ToString(CultureInfo.InvariantCulture) + " magnitude:" + rightStick.magnitude.ToString(CultureInfo.InvariantCulture);
+
     }
 }

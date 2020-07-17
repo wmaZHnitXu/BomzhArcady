@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class Inventory : MonoBehaviour
+public struct Inventory
 {
     public int[] itemsInStorage;
+    public Inventory (int[] array) {
+        itemsInStorage = array;
+    }
 }

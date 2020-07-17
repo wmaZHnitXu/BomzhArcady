@@ -27,6 +27,7 @@ public class ClickCallback : MonoBehaviour
                kiosk.CallBack();
            }
            else {
+           if (characterctrl.it.onPc)
            parent.CallBack();
            }
        }
