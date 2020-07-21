@@ -15,12 +15,12 @@ public class inventoryCtrl : MonoBehaviour
 {
     public static inventoryCtrl me;
     public GameObject clickPanel;
-    public byte[,,] items = new byte[4,4,2];
+    public int[,,] items = new int[4,4,2];
     // Start is called before the first frame update
     public Image[] images = new Image[16];
     public Sprite[] sprites;
     public Text[] texts = new Text[16];
-    public byte itemClickedId;
+    public int itemClickedId;
     public byte invClickedId;
     public SpriteRenderer inHandImg;
     public bool isEnabled;
@@ -59,6 +59,7 @@ public class inventoryCtrl : MonoBehaviour
                 }
             }
         }
+        Set2DimArrayToInventory(Get2DimInventory());
         RenderInventory();
         return added;
     }
@@ -121,7 +122,7 @@ public class inventoryCtrl : MonoBehaviour
             }
         }
         else {
-            WeaponInHand();
+            PlaceWeaponInHand();
         }
         if (structs[itemClickedId].flip) {
             inHandImg.transform.localRotation = Quaternion.Euler(0,0,-90);
@@ -173,7 +174,7 @@ public class inventoryCtrl : MonoBehaviour
             RenderInventory();
         }
     }
-    public void RemoveItem (byte id) {
+    public void RemoveItem (int id) {
         bool removed = false;
         for(byte i = 0; i < 4 & removed == false; i++) {
             for(byte i2 = 0; i2 < 4 & removed == false; i2++) {
@@ -219,7 +220,7 @@ public class inventoryCtrl : MonoBehaviour
         RemoveItem(itemClickedId);
         clickPanel.transform.position = new Vector3(100f,100f,100f);
     }
-    public void WeaponInHand () {
+    public void PlaceWeaponInHand () {
         DeactivateWeapon();
         inHandImg.sprite = null;
         withWeapon = true;
@@ -248,5 +249,21 @@ public class inventoryCtrl : MonoBehaviour
         withWeapon = false;
         ctrl.SetWeapon(false);
         ctrl.meleeDamage = weapons[0].ammo[0];
+    }
+    public int[,] Get2DimInventory () {
+        int[,] result = new int[16,2];
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 4; x++) {
+                result[x + y*4,0] = items[x,y,0];
+                result[x + y*4,1] = items[x,y,1];
+            }
+        } 
+        return result;
+    }
+    public void Set2DimArrayToInventory (int[,] array) {
+        for (int i = 0; i < 16; i++) {
+            items[i % 4, i / 4, 0] = array[i, 0];
+            items[i % 4, i / 4, 1] = array[i, 1];
+        }
     }
 }

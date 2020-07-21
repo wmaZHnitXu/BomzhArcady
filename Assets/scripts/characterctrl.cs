@@ -569,4 +569,10 @@ public class characterctrl : hpBase
     {
         return transform.position + (Random.Range(0, 100) > 50 ? npcSpawnPos[1] : npcSpawnPos[0]);
     }
+    public void SetStatsFromSave (int hunger, int water, int health, int money) {
+        characterctrl.eat = (byte)hunger;
+        characterctrl.water = (byte)water;
+        characterctrl.money = money;
+        Health = health;
+    }
 }

@@ -45,7 +45,7 @@ public class timeCtrl : MonoBehaviour
     [SerializeField] private int maxEnemyCount;
     public static timeCtrl me;
     private bool sunIsDown;
-    void Start()
+    void Awake()
     {
         me = this;
         ses = new WaitForSeconds(timestep);
