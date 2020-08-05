@@ -20,14 +20,16 @@ public class itemCtrl : MonoBehaviour
     public Material mat;
     public static List<Transform> itemTransforms = new List<Transform>();
     public static List<itemCtrl> controls = new List<itemCtrl>();
+    void Awake () {
+        if (mat == null) {
+            mat = transform.GetChild(0).GetComponent<SpriteRenderer>().material;
+        }
+    }
     void Start()
     {
         itemTransforms.Add(transform);
         controls.Add(this);
         distance = 4;
-        if (mat == null) {
-            mat = transform.GetChild(0).GetComponent<SpriteRenderer>().material;
-        }
         if (rb == null) {
             rb = gameObject.GetComponent<Rigidbody2D>();
         }
@@ -87,17 +89,25 @@ public class itemCtrl : MonoBehaviour
     public void CallBack () {
         if (!dead & !characterctrl.it.busy) {
             if (buttonon) {
-                dead = true;
-                if (rb!=null)
-                    rb.simulated = false;
-                buttonon = false;
-                mat.SetFloat("_OutlineThickness",0);
-                if (cb != null) {
-                    cb.enabled = false;
-                }
+                Pull();
             }
         }
     }
+    public void Pull () {
+        dead = true;
+        if (rb!=null) rb.simulated = false;
+        buttonon = false;
+        mat.SetFloat("_OutlineThickness",0);
+        if (cb != null) {
+            cb.enabled = false;
+        }
+    }
+    public void Pull(bool p) {
+        if (p) {
+            GetComponent<BoxCollider2D>().enabled = false;
+        }
+        Pull();
+    } 
     void OnDestroy () {
         itemTransforms.Remove(transform);
     }

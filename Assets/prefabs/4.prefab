@@ -93,6 +93,12 @@ PrefabInstance:
       propertyPath: id
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7543349467152898487, guid: 0f99f9153d98ec34e83c4874f643c91a,
+        type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1909286615226431502, guid: b95bcc14ef05e5d41883903d0c89a660,
+        type: 3}
     - target: {fileID: 7805832276942978037, guid: 0f99f9153d98ec34e83c4874f643c91a,
         type: 3}
       propertyPath: parent

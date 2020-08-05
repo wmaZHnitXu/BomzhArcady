@@ -144,6 +144,9 @@ public class characterctrl : hpBase
     private static readonly int Hide = Animator.StringToHash("hide");
     private static readonly int Attack1 = Animator.StringToHash("attack");
     private static readonly int Walk = Animator.StringToHash("walk");
+    private Camera myCam;
+    private Coroutine zoomRoutine;
+    private string crowStormName;
 
     public characterctrl(bool phone, float normalZRot)
     {
@@ -153,7 +156,9 @@ public class characterctrl : hpBase
     
     private void Awake()
     {
+        crowStormName = "crowStorm";
         //Application.targetFrameRate = 60;
+        myCam = Camera.main;
         onPc = SystemInfo.deviceType == DeviceType.Desktop;
         it = this;
         ResetCam();
@@ -507,11 +512,13 @@ public class characterctrl : hpBase
     }
 
     public override void Death() {
+        if (dead) return;
         dead = true;
         rb.freezeRotation = false;
         gameObject.layer = 15;
         StopAllCoroutines();
-        youDied.SetTrigger(Death1);
+        startScreenCtrl.me.EnableCanvas();
+        startScreenCtrl.me.SwitchScreenState(3);
     }
     public void Revive () {
         rb.freezeRotation = true;
@@ -525,6 +532,7 @@ public class characterctrl : hpBase
         dead = false;
         StartCoroutine(SvoistvaIteration());
         brakeParticles.Stop();
+        startScreenCtrl.me.Invoke("DisableCanvas", 2f);
     }
     public void GetInTransport () {
         rb.simulated = false;
@@ -557,6 +565,7 @@ public class characterctrl : hpBase
         camTarget = caminterp;
         camOnTransform = true;
         camspeed = 0.1f;
+        SetCamZoom(5);
     }
     public void StartCutScene (bool start) {
         mainCanvas.SetActive(!start);
@@ -564,7 +573,17 @@ public class characterctrl : hpBase
         ResetCam();
         freeze = start;
     }
-
+    public void SetCamZoom (float zoom) {
+        if (zoomRoutine != null) StopCoroutine(zoomRoutine);
+        zoomRoutine = StartCoroutine(Zooming(zoom));
+    }
+    private IEnumerator Zooming (float zoom) {
+        while (Mathf.Abs(myCam.orthographicSize - zoom) > 0.1f) {
+            yield return null;
+            myCam.orthographicSize = Mathf.Lerp(myCam.orthographicSize, zoom, 0.1f);
+        }
+         myCam.orthographicSize = zoom;
+    }
     public Vector3 GetNpcSpawnPosition()
     {
         return transform.position + (Random.Range(0, 100) > 50 ? npcSpawnPos[1] : npcSpawnPos[0]);
@@ -574,5 +593,20 @@ public class characterctrl : hpBase
         characterctrl.water = (byte)water;
         characterctrl.money = money;
         Health = health;
+    }
+    public void InstantPosChange (Vector3 pos) {
+        transform.position = pos;
+        camtrns.position = camTarget.position;
+    }
+    public void CrowStrike(Vector3 crowPos) {
+        fxHub.me.GimmeParticles(particleType.SmallSmoke, transform.position);
+        rb.AddForce((crowPos.x > transform.position.x ? -250 : 250) * Vector3.right);
+        AddHit(5);
+    }
+    private void OnParticleCollision (GameObject collidedObj) {
+        if (collidedObj.name.Equals(crowStormName)) {
+            CrowStrike(collidedObj.transform.position);
+        }
+        Debug.Log(collidedObj.name + crowStormName);
     }
 }

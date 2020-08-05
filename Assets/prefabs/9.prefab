@@ -22,6 +22,12 @@ PrefabInstance:
       propertyPath: id
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6323602692251685506, guid: 2ec9ba6bc4dbf8045be8ad691030b45a,
+        type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1909286615226431502, guid: b95bcc14ef05e5d41883903d0c89a660,
+        type: 3}
     - target: {fileID: 7861653626819858256, guid: 2ec9ba6bc4dbf8045be8ad691030b45a,
         type: 3}
       propertyPath: m_Name

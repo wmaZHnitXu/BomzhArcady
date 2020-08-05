@@ -21,14 +21,17 @@ public class savePanel : MonoBehaviour, IDeselectHandler, ISelectHandler
             goodObjectsToClick = new GameObject[2];
             goodObjectsToClick[0] = GameObject.Find("SaveContext/Load");
             goodObjectsToClick[1] = GameObject.Find("SaveContext/Delete");
-            SaveLoad.me.SelectSave();
+            SaveLoad.me.PullSavesPanel(false);
         }
         if (!animator) animator = GetComponent<Animator>();
         HashedPulled = Animator.StringToHash("pulled");
     }
     public void Initialize (int id, string name, string date, string timeInGame) {
         idOfSave = id;
-        nameOfSave.text = name;
+        if (name != string.Empty)
+            nameOfSave.text = name;
+        else
+            nameOfSave.text = "Сохранение";
         dateOfSave.text = date;
         saveTimeInGame.text = timeInGame;
     }

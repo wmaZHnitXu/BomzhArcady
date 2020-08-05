@@ -93,5 +93,16 @@ PrefabInstance:
       propertyPath: id
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4265046622464219361, guid: 1a64f381171ead74a932f4bec6ec2f26,
+        type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 2704269758258171614}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a64f381171ead74a932f4bec6ec2f26, type: 3}
+--- !u!50 &2704269758258171614 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 1260776403552032221, guid: 1a64f381171ead74a932f4bec6ec2f26,
+    type: 3}
+  m_PrefabInstance: {fileID: 3816891333359344387}
+  m_PrefabAsset: {fileID: 0}

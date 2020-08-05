@@ -12,6 +12,7 @@ public struct npcSpawnStructure
     public float frequency;
     public GameObject[] npcPrefab;
     public float[] probability;
+    public GameObject boss;
 }
 public class timeCtrl : MonoBehaviour
 {
@@ -45,11 +46,22 @@ public class timeCtrl : MonoBehaviour
     [SerializeField] private int maxEnemyCount;
     public static timeCtrl me;
     private bool sunIsDown;
+    private Coroutine timeRoutine;
+    private bossBase boss;
+    [SerializeField] private Image bossBar;
+    public bool GoTime {
+        get => (timeRoutine != null);
+        set {
+            if (value != GoTime) {
+                if (value) timeRoutine = StartCoroutine(TimeRecount());
+                else StopCoroutine(timeRoutine);
+            }
+        }
+    }
     void Awake()
     {
         me = this;
         ses = new WaitForSeconds(timestep);
-        StartCoroutine(TimeRecount());
     }
 
     private IEnumerator TimeRecount () {
@@ -62,44 +74,7 @@ public class timeCtrl : MonoBehaviour
                 night = true;
                 StartCoroutine(NightRaid());
             }
-            hours = time / 60;
-            minutes = time % 60;
-
-            if (minutes < 10)
-                clock.text = hours.ToString() + ":0" + minutes.ToString();
-            else
-                clock.text = hours.ToString() + ":" + minutes.ToString();
-            for (var i = 0; i < 5; i++) {
-                multiplers[i] = (360 - (float)(0 < Math.Abs(times[i] - time) ? Math.Abs(times[i] - time) : 1)) / 360;
-                if (multiplers[i] < 0) multiplers[i] = 0;
-            }
-            skySprite.color = timeColors[0] * multiplers[0] + timeColors[1] * multiplers[1] + timeColors[2] * multiplers[2] + timeColors[3] * multiplers[3] + timeColors[4] * multiplers[4];
-            night = time < 300;
-            sunIsDown = time > 1350 || time < 300;
-            if (sunIsDown & sunLight.intensity > 0.66f) {
-                sunLight.intensity = Mathf.Lerp(sunLight.intensity,0.65f,0.02f);
-            }
-
-            if (!sunIsDown & sunLight.intensity < 1.59f)
-            {
-                sunLight.intensity = Mathf.Lerp(sunLight.intensity, 1.6f, 0.01f);
-            }
-            switch (time) {
-                case 1400:
-                    Debug.Log("NightAlert");
-                    NightAlert(false);
-                break;
-            }
-
-            if (sunLight.intensity < 0.7f && !bossEjected && characterctrl.NearNpcs.Count == 0) {
-                bossEjected = true;
-                maniac.transform.position = characterctrl.me.position + (UnityEngine.Random.Range(0,100) > 50 ? new Vector3(10,0,0) : new Vector3 (-10,0,0));
-                maniac.SetActive(true);
-            }
-            if (sunLight.intensity > 0.7 & bossEjected) {
-                bossEjected = false;
-                maniac.SetActive(false);
-            }
+            SetTime(time);
         }
     }
 
@@ -114,6 +89,7 @@ public class timeCtrl : MonoBehaviour
             }
             yield return new WaitForSeconds(UnityEngine.Random.Range(nights[day-1].frequency,nights[day-1].frequency * 2));
         }
+        if (nights[day-1].boss != null) StartBossRaid();
         NightAlert(true);
     }
 
@@ -143,5 +119,53 @@ public class timeCtrl : MonoBehaviour
     }
     public void NightAlertReturn () {
         retardedTwiner.me.CallAnimation(alarmTransform,new Vector2(0,25), 0.1f, null, 2f);
+    }
+    public void SetTime (int времяБлять) {
+        time = времяБлять;
+        hours = времяБлять / 60;
+        minutes = времяБлять % 60;
+
+        if (minutes < 10)
+            clock.text = hours.ToString() + ":0" + minutes.ToString();
+        else
+            clock.text = hours.ToString() + ":" + minutes.ToString();
+        for (var i = 0; i < 5; i++) {
+            multiplers[i] = (360 - (float)(0 < Math.Abs(times[i] - времяБлять) ? Math.Abs(times[i] - времяБлять) : 1)) / 360;
+            if (multiplers[i] < 0) multiplers[i] = 0;
+        }
+        skySprite.color = timeColors[0] * multiplers[0] + timeColors[1] * multiplers[1] + timeColors[2] * multiplers[2] + timeColors[3] * multiplers[3] + timeColors[4] * multiplers[4];
+        night = времяБлять < 300;
+        sunIsDown = времяБлять > 1350 || времяБлять < 300;
+        if (sunIsDown & sunLight.intensity > 0.66f) {
+            sunLight.intensity = Mathf.Lerp(sunLight.intensity,0.65f,0.02f);
+        }
+
+        if (!sunIsDown & sunLight.intensity < 1.59f)
+        {
+            sunLight.intensity = Mathf.Lerp(sunLight.intensity, 1.6f, 0.01f);
+        }
+        switch (времяБлять) {
+            case 1400:
+                Debug.Log("NightAlert");
+                NightAlert(false);
+            break;
+        }
+
+        if (sunLight.intensity < 0.7f && !bossEjected && characterctrl.NearNpcs.Count == 0) {
+            bossEjected = true;
+            maniac.transform.position = characterctrl.me.position + (UnityEngine.Random.Range(0,100) > 50 ? new Vector3(10,0,0) : new Vector3 (-10,0,0));
+            maniac.SetActive(true);
+        }
+        if (sunLight.intensity > 0.7 & bossEjected) {
+            bossEjected = false;
+            maniac.SetActive(false);
+        }
+    }
+    public void StartBossRaid () {
+        GoTime = false;
+        
+    }
+    public void StopBossRaid () {
+        GoTime = true;
     }
 }
