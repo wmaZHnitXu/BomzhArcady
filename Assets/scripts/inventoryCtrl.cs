@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 [System.Serializable]
 public struct weaponStruct {
@@ -13,6 +14,7 @@ public struct weaponStruct {
 }
 public class inventoryCtrl : MonoBehaviour
 {
+    public Sprite emptySprite;
     public static inventoryCtrl me;
     public GameObject clickPanel;
     public int[,,] items = new int[4,4,2];
@@ -41,6 +43,8 @@ public class inventoryCtrl : MonoBehaviour
     [SerializeField]
     private Button trashButton;
     private int inHandItem;
+    [SerializeField] private RectTransform fullInvInfoTransform;
+    public UnityAction OnInventoryModified;
     void OnEnable()
     {
         me = this;
@@ -48,37 +52,41 @@ public class inventoryCtrl : MonoBehaviour
     }
 
     public bool AddItem(byte itemId) {
-        bool added = false;
-        for(byte i = 0; i < 4 & added == false; i++) {
-            for(byte i2 = 0; i2 < 4 & added == false; i2++) {
+        for(byte i = 0; i < 4; i++) {
+            for(byte i2 = 0; i2 < 4; i2++) {
                 if (items[i2,i,0] == itemId | items[i2,i,0] == 0) {
                     Debug.Log(items[i2,i,0].ToString() + itemId.ToString() + (items[i2,i,0] == 0).ToString());
                     items[i2,i,0] = itemId;
                     items[i2,i,1]++;
-                    added = true;//Debug.Log(i2.ToString()+i.ToString());
+                    OnInventoryModified.Invoke();
+                    return true;//Debug.Log(i2.ToString()+i.ToString());
                 }
             }
         }
         Set2DimArrayToInventory(Get2DimInventory());
         RenderInventory();
-        return added;
+        SayInventoryIsFull();
+        Instantiate(prefabs[itemId],transform.position,transform.rotation);
+        return false;
     }
     public bool AddItem(byte itemId, byte count) {
-        bool added = false;
         if (structs[itemId].type != 1) {
-            for(byte i = 0; i < 4 & added == false; i++) {
-                for(byte i2 = 0; i2 < 4 & added == false; i2++) {
+            for(byte i = 0; i < 4; i++) {
+                for(byte i2 = 0; i2 < 4; i2++) {
                     if (items[i2,i,0] == itemId | items[i2,i,0] == 0) {
                         Debug.Log(items[i2,i,0].ToString() + itemId.ToString() + (items[i2,i,0] == 0).ToString());
                         items[i2,i,0] = itemId;
                         items[i2,i,1]+=count;
-                        added = true;//Debug.Log(i2.ToString()+i.ToString());
+                        OnInventoryModified.Invoke();
+                        return true;//Debug.Log(i2.ToString()+i.ToString());
                     }
                 }
             }
         }
         RenderInventory();
-        return added;
+        SayInventoryIsFull();
+        for (int i = 0; i < count; i++) Instantiate(prefabs[itemId],transform.position,transform.rotation);
+        return false;
     }
     public void RenderInventory () {
          FormatInventory();
@@ -130,6 +138,11 @@ public class inventoryCtrl : MonoBehaviour
         else
             inHandImg.transform.localRotation = Quaternion.Euler(0,0,0);
         inHandItem = itemClickedId;
+    }
+    public void UseItemFromOutside (int ItemId) {
+        itemClickedId = ItemId;
+        AddInHand();
+        ToggleInventory();
     }
     public void ToggleInventory () {
         if (isEnabled) {
@@ -197,6 +210,7 @@ public class inventoryCtrl : MonoBehaviour
                     }
                     else
                         items[i2,i,1]--;
+                    OnInventoryModified.Invoke();
                     removed = true;//Debug.Log(i2.ToString()+i.ToString());
                 }
             }
@@ -244,6 +258,7 @@ public class inventoryCtrl : MonoBehaviour
     }
     void DeactivateWeapon () {
         ctrl.weapon = 0;
+        ctrl.attackCd[1] = weapons[0].reloadSpeed;
         ctrl.arm.enabled = true;
         inHandWeapon.sprite = null;
         withWeapon = false;
@@ -260,10 +275,27 @@ public class inventoryCtrl : MonoBehaviour
         } 
         return result;
     }
+    public int GetCountOfItems (int itemId) {
+        int result = 0;
+        for (int i = 0; i < 16; i++) {
+            if (items[i % 4, i / 4, 0] == itemId) {
+                result += items[i % 4, i / 4, 1];
+            }
+        }
+        return result;
+    }
     public void Set2DimArrayToInventory (int[,] array) {
         for (int i = 0; i < 16; i++) {
             items[i % 4, i / 4, 0] = array[i, 0];
             items[i % 4, i / 4, 1] = array[i, 1];
         }
+    }
+    public void SayInventoryIsFull () {
+        UnityAction action = null;
+        action += HideInventoryFullText;
+        retardedTwiner.me.CallAnimation(fullInvInfoTransform, new Vector2 (540, 105), 0.1f, action, 2);
+    }
+    public void HideInventoryFullText () {
+        retardedTwiner.me.CallAnimation(fullInvInfoTransform, new Vector2 (900, 105), 0.1f);
     }
 }

@@ -174,7 +174,20 @@ public class characterctrl : hpBase
         freeze = true;
         siting = true;
     }
-
+    public void Init () {
+        transform.rotation = Quaternion.Euler(0,0,normalZRot);
+        dead = false;
+        brakeParticles.Stop();
+        rb.freezeRotation = true;
+        StopAllCoroutines();
+        StartCoroutine(SvoistvaIteration());
+        gameObject.layer = 12;
+        rb.velocity = Vector3.zero;
+        rb.drag = 0.5f;
+        speed = 7;
+        acceleration = 2;
+        ResetCam();
+    }
     private void FixedUpdate()
     {
         if (!dead)  {//ctrl
@@ -274,11 +287,6 @@ public class characterctrl : hpBase
                    StartCoroutine(Reloading());
                }
            }
-           s.fillAmount = Mathf.Lerp(s.fillAmount,System.Convert.ToSingle(exp)/System.Convert.ToSingle(expMax),0.1f);
-           s2.fillAmount = Mathf.Lerp(s2.fillAmount,System.Convert.ToSingle(wantedLvl)/System.Convert.ToSingle(100),0.1f);
-           if (exp >= expMax)
-               LevelUp();
-
         }
         if (rb.velocity.magnitude > 100f) {
             fxHub.me.ShakeMe(rb.velocity.magnitude / 5000); //Тряска
@@ -325,7 +333,7 @@ public class characterctrl : hpBase
                 }
                 TextUpdate();
                 counter++;
-                if ((Random.Range(0,10) == 1 || Random.Range(0,10) == 2) & intwn & !timeCtrl.night)
+                if ((Random.Range(0,10) == 1 || Random.Range(0,10) == 2) & intwn & timeCtrl.me.time < 1300 & timeCtrl.me.time > 400)
                     SpawnRandomNpc();
             }
             if (eat == 0) {
@@ -345,7 +353,6 @@ public class characterctrl : hpBase
         texts[1].text = money.ToString();
         texts[2].text = water.ToString();
         texts[3].text = eat.ToString();
-        texts[4].text = level.ToString();
     }
     void LevelUp () {
         level++;
@@ -395,7 +402,7 @@ public class characterctrl : hpBase
     public void SetWeapon(bool b) {
         withCross = b;
         weaponCanv[0].SetActive(!b);
-        weaponCanv[1].SetActive(b);
+        weaponCanv[1].SetActive(b && onPc);
         weaponCanv[2].SetActive(b);
     }
 
@@ -487,7 +494,7 @@ public class characterctrl : hpBase
             speed = speed / 2;
         }
         else {
-            speed = speed * 2;
+            speed = 7;
         }
     }
     public void Boost(Vector2 bst) {
@@ -521,18 +528,13 @@ public class characterctrl : hpBase
         startScreenCtrl.me.SwitchScreenState(3);
     }
     public void Revive () {
-        rb.freezeRotation = true;
         Health = 100;
         eat = 100;
         water = 100;
         transform.position = spawnPoint;
-        transform.rotation = Quaternion.Euler(0,0,normalZRot);
-        youDied.SetTrigger(Hide);
-        gameObject.layer = 12;
-        dead = false;
-        StartCoroutine(SvoistvaIteration());
-        brakeParticles.Stop();
-        startScreenCtrl.me.Invoke("DisableCanvas", 2f);
+        youDied.SetBool("pull", false);
+        startScreenCtrl.me.StartCoroutine(startScreenCtrl.me.canvasScaling(true));
+        Init();
     }
     public void GetInTransport () {
         rb.simulated = false;

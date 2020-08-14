@@ -57,7 +57,7 @@ MonoBehaviour:
   cb: {fileID: 0}
   id: 8
   dead: 0
-  rb: {fileID: 1909286615226431502, guid: b95bcc14ef05e5d41883903d0c89a660, type: 3}
+  rb: {fileID: -176023982607048770}
   speed: 0.2
   mat: {fileID: 0}
 --- !u!114 &593338235844955118

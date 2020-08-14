@@ -77,8 +77,7 @@ PrefabInstance:
         type: 3}
       propertyPath: rb
       value: 
-      objectReference: {fileID: 1909286615226431502, guid: b95bcc14ef05e5d41883903d0c89a660,
-        type: 3}
+      objectReference: {fileID: 4888634876013343632}
     - target: {fileID: 8610108192219589544, guid: 0f99f9153d98ec34e83c4874f643c91a,
         type: 3}
       propertyPath: m_SortingOrder
@@ -144,6 +143,12 @@ PrefabInstance:
 --- !u!1 &6177138496306451988 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1203853860256971509, guid: 0f99f9153d98ec34e83c4874f643c91a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4975747551960886497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &4888634876013343632 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 493851754723123057, guid: 0f99f9153d98ec34e83c4874f643c91a,
     type: 3}
   m_PrefabInstance: {fileID: 4975747551960886497}
   m_PrefabAsset: {fileID: 0}

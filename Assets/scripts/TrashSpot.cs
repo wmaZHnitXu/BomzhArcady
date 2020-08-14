@@ -21,14 +21,9 @@ public class TrashSpot : MonoBehaviour
     }
     public void TrashIsDead () {
         trashCount--;
-        StartCoroutine(ReviveTrash());
     }
     public void FirstInitalization () {
-        for (int i = 0; i < maxTrashCount; i++) {
-            trashCount++;
-            Instantiate(getRandomTrash(), transform.position + new Vector3(Random.Range(spawnRangeX,-spawnRangeX), 0, 0), Quaternion.identity).GetComponent<musorCtrl>()
-            .deathEvent += TrashIsDead;;
-        }
+        timeCtrl.me.remindAboutMorning += ReviveTrash;
         Initialized = true;
     }    
     private GameObject getRandomTrash () {
@@ -44,13 +39,11 @@ public class TrashSpot : MonoBehaviour
         }
         return result;
     }
-    private IEnumerator ReviveTrash () {
-        if (trashCount != maxTrashCount) {
-            yield return new WaitForSeconds(trashRespawnCd);
+    public void ReviveTrash () {
+        while (trashCount < maxTrashCount) {
             trashCount++;
             Instantiate(getRandomTrash(), transform.position + new Vector3(Random.Range(spawnRangeX,-spawnRangeX), 0, 0), Quaternion.identity).GetComponent<musorCtrl>()
             .deathEvent += TrashIsDead;
-            yield return new WaitForSeconds(2);
         }
     }
 }

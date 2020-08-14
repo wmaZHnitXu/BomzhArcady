@@ -70,6 +70,7 @@ public class npcCtrl : hpBase, IHp
 
     //Все настолько нанотеч, что у меня есть пул для нпс, но нет пула для пуль.
     protected void Awake () { //Не допускать мертворождение(слой меняется во время смерти)
+        timeCtrl.me.remindAboutNight += NigthAlarm;
         myLayer = gameObject.layer;
         scale = transform.localScale;
         detachMe += DetachTarget;
@@ -282,14 +283,14 @@ public class npcCtrl : hpBase, IHp
         destination = characterctrl.me;
         attack = true;
     }
-    protected void Tikaem () {
+    protected void Tikaem (bool callPol = true) {
         if (!tikaet) {
             tikaet = true;
             attack = false;
             destination = reserveDest;
             reserveDest.position = new Vector3((characterctrl.me.position.x < transform.position.x ? 10 : -10) + transform.position.x,transform.position.y,transform.position.z);
             speedMultipl = 1.5f;
-            StartCoroutine(CallThePolice());
+            if (callPol) StartCoroutine(CallThePolice());
         }
     }
     protected virtual void OnDisable () {
@@ -369,5 +370,19 @@ public class npcCtrl : hpBase, IHp
             reserveDest.position = new Vector3(transform.position.x + UnityEngine.Random.Range(25,40f),transform.position.y,transform.position.z);
         }
         destination = reserveDest;
+    }
+    private IEnumerator NightKills () {
+        while (true) {
+            yield return null;
+            if (Mathf.Abs(characterctrl.me.position.x - transform.position.x) > 20) {
+                SilentDeath();
+                break;
+            } 
+        }
+    }
+    public void NigthAlarm () {
+        if (dead) return;
+        Tikaem(false);
+        StartCoroutine(NightKills());
     }
 }

@@ -19,6 +19,7 @@ public abstract class bossBase : hpBase {
         startScale = transform.localScale;
     }
     public override void AddHit(int hit) {
+        timeCtrl.me.UpdateBossBar();
         base.AddHit(hit);
         hpBar.fillAmount = maxHp / hp;
     }

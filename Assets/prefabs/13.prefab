@@ -67,8 +67,7 @@ PrefabInstance:
         type: 3}
       propertyPath: rb
       value: 
-      objectReference: {fileID: 1909286615226431502, guid: b95bcc14ef05e5d41883903d0c89a660,
-        type: 3}
+      objectReference: {fileID: 2486741384160189287}
     - target: {fileID: 8054391762301086996, guid: 0f99f9153d98ec34e83c4874f643c91a,
         type: 3}
       propertyPath: m_Sprite
@@ -141,6 +140,12 @@ PrefabInstance:
 --- !u!1 &3813668338219974371 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1203853860256971509, guid: 0f99f9153d98ec34e83c4874f643c91a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2618893283989390358}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &2486741384160189287 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 493851754723123057, guid: 0f99f9153d98ec34e83c4874f643c91a,
     type: 3}
   m_PrefabInstance: {fileID: 2618893283989390358}
   m_PrefabAsset: {fileID: 0}

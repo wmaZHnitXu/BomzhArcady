@@ -13,6 +13,7 @@ public class ClickCallback : MonoBehaviour
        down = true; 
    }
    void Start() {
+       iskiosk = kiosk;
        if (parent == null && kiosk == null) parent = GetComponent<itemCtrl>();
    }
    void OnMouseOver () {

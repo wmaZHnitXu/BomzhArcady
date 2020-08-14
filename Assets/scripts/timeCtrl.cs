@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.Experimental.Rendering.LWRP;
 using UnityEngine.Events;
 using Random = System.Random;
 [Serializable]
@@ -16,6 +15,7 @@ public struct npcSpawnStructure
 }
 public class timeCtrl : MonoBehaviour
 {
+    [SerializeField] private Vector3 bossApPos;
     public int time;
     private WaitForSeconds ses;
     public float timestep;
@@ -48,7 +48,7 @@ public class timeCtrl : MonoBehaviour
     private bool sunIsDown;
     private Coroutine timeRoutine;
     private bossBase boss;
-    [SerializeField] private Image bossBar;
+    [SerializeField] private Image[] bossBar = new Image[2];
     public bool GoTime {
         get => (timeRoutine != null);
         set {
@@ -58,6 +58,9 @@ public class timeCtrl : MonoBehaviour
             }
         }
     }
+    [SerializeField] private GameObject bossBounds;
+    public UnityAction remindAboutNight;
+    public UnityAction remindAboutMorning;
     void Awake()
     {
         me = this;
@@ -68,6 +71,7 @@ public class timeCtrl : MonoBehaviour
         while (true) {
             yield return ses;
             time++;
+            if (time == 1400) remindAboutNight.Invoke();
             if (time == 1440) {
                 time = 0;
                 day++;
@@ -162,10 +166,35 @@ public class timeCtrl : MonoBehaviour
         }
     }
     public void StartBossRaid () {
+        if (!nights[day-1].boss) return;
+        StartCoroutine(BossAppears());
+    }
+    IEnumerator BossAppears () {
+        Debug.Log("startBossRaid");
+        bossBounds.SetActive(true);
         GoTime = false;
-        
+        clock.text = "#####";
+        yield return new WaitForSeconds(1f);
+        boss = Instantiate(nights[day-1].boss, bossApPos, Quaternion.identity).GetComponent<bossBase>();
+        clock.text = boss.nameOfNpc;
+        bossBar[0].fillAmount = 0;
+        retardedTwiner.me.CallAnimation(bossBar[0].rectTransform, new Vector2(0, -80), 0.01f);
+    }
+    private Coroutine fillroutine;
+    public void UpdateBossBar () {
+        if (fillroutine != null) StopCoroutine(fillroutine);
+        fillroutine = StartCoroutine(UpdateBossBarIEnum(boss.hp));
+    }
+    private IEnumerator UpdateBossBarIEnum (float fill) {
+        while (Mathf.Abs(fill - bossBar[0].fillAmount) > 0.01f) {
+            bossBar[0].fillAmount = Mathf.Lerp(bossBar[0].fillAmount, fill, 0.1f);
+            yield return new WaitForFixedUpdate();
+        }
+        bossBar[0].fillAmount = fill;
     }
     public void StopBossRaid () {
+        retardedTwiner.me.CallAnimation(bossBar[0].rectTransform, new Vector2(0, 30), 0.01f);
         GoTime = true;
+        remindAboutMorning.Invoke();
     }
 }

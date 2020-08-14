@@ -69,26 +69,31 @@ public class startScreenCtrl : MonoBehaviour
         characterctrl.it.SwitchSiting(true);
     }
 
-    void FixedUpdate()
-    {
-        if (starting) {
-            cslr.scaleFactor = Mathf.Lerp(cslr.scaleFactor,1f,0.1f);
-            if (cslr.scaleFactor > 0.99f) {
-                starting = false;
-                characterctrl.freeze = false;
-                //canvases[0].SetActive(false);
-                characterctrl.it.SwitchSiting(false);
-                characterctrl.it.gameStarted = true;
-                cslr.scaleFactor = 1f;
-            }
+    public IEnumerator canvasScaling (bool b) {
+        if (b) GameCanvas.SetActive(true);
+        float target = b ? 1f : 0.01f;
+        while (Mathf.Abs(cslr.scaleFactor - target) > 0.02f) {
+            yield return null;
+            cslr.scaleFactor = Mathf.Lerp(cslr.scaleFactor, target, 0.1f);
+        }
+        cslr.scaleFactor = target;
+        if (b) {
+            characterctrl.freeze = false;
+            characterctrl.it.SwitchSiting(false);
+            characterctrl.it.gameStarted = true;
+            cslr.scaleFactor = 1f;
+            canvasObject.SetActive(false);
+        }
+        if (!b) {
+            GameCanvas.SetActive(false);
         }
     }
     public void StartGame() {
-        starting = true;
+        StartCoroutine(canvasScaling(true));
+        characterctrl.it.Init();
         SwitchScreenState(0);
         menuAnim[0].SetTrigger("disable");
         menuAnim[1].SetBool(HashedPull, false);
-        canvases[1].SetActive(true);
         particle.Stop();
         Invoke("HashedPullCanvas", 2f);
     }
@@ -103,12 +108,12 @@ public class startScreenCtrl : MonoBehaviour
     }
     public void SwitchDeadMenu () {
         bool b = !deadPanAnim.GetBool(HashedPull);
+        if (b) StartCoroutine(canvasScaling(false));
         menu.SetActive(!b);
         menuAnim[1].SetBool(HashedPull, !b);
         deadPanAnim.SetBool(HashedPull, b);
     }
     public void EnableCanvas () {
         canvasObject.SetActive(true);
-        GameCanvas.SetActive(false);
     }
 }

@@ -14,8 +14,11 @@ public class tovar : MonoBehaviour
     private bool near;
     [SerializeField] private GameObject bolvankaPrefab;
     [SerializeField] private Transform telegaTransform;
+    private static float nearestDistance;
     UnityAction a;
+
     private void Start () {
+        nearestDistance = 100;
         a += Pick;
         uiInfo = kopeika.buyInfoText;
         uiButton = kopeika.buyButton;
@@ -25,10 +28,13 @@ public class tovar : MonoBehaviour
     }
     void Update()
     {
+        nearestDistance = 1000;
         float dist = Mathf.Abs(characterctrl.me.position.x - transform.position.x);
-        if (dist < 1.1f) {
-            if (!near)
-            SetNear(true);
+        if (dist < 2f && dist < nearestDistance) {
+            nearestDistance = dist;
+            if (!near) {
+                SetNear(true);
+            }
         }
         else {
             if (near)

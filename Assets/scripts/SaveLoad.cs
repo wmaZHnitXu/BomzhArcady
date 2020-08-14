@@ -150,6 +150,7 @@ public class SaveLoad : MonoBehaviour
         }
     }
     public void Load () {
+        characterctrl.it.Init();
         int saveId = selectedSave; 
         var entities = FindObjectsOfType<hpBase>();
         foreach (hpBase hp in entities) {

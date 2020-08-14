@@ -37,6 +37,7 @@ public class telega : MonoBehaviour
         foreach (tovarBolvanka bolvan in FindObjectsOfType<tovarBolvanka>()) Destroy(bolvan.gameObject);
         transform.position = defPos;
         rb.velocity = Vector3.zero;
+        costInside = 0;
         tovariInside.Clear();
     }
     private void UpdateCost () {
@@ -51,6 +52,7 @@ public class telega : MonoBehaviour
             Destroy(bolvanka.gameObject);
         }
         characterctrl.money -= costInside;
+        costInside = 0;
         tovariInside.Clear();
     }
 }

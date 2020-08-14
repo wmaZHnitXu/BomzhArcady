@@ -31,8 +31,7 @@ PrefabInstance:
         type: 3}
       propertyPath: rb
       value: 
-      objectReference: {fileID: 1909286615226431502, guid: b95bcc14ef05e5d41883903d0c89a660,
-        type: 3}
+      objectReference: {fileID: 1260776403552032221}
     - target: {fileID: 7312893648059071660, guid: 6331a55b12de24b499847aa3b00d0dec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -101,3 +100,9 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6331a55b12de24b499847aa3b00d0dec, type: 3}
+--- !u!50 &1260776403552032221 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8496050918079786049, guid: 6331a55b12de24b499847aa3b00d0dec,
+    type: 3}
+  m_PrefabInstance: {fileID: 7248301975311169948}
+  m_PrefabAsset: {fileID: 0}

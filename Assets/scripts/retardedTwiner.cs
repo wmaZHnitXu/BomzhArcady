@@ -13,7 +13,7 @@ public class retardedTwiner : MonoBehaviour
     private void Start() {
         me = this;    
     }
-    public void CallAnimation(RectTransform animatedTrans, Vector2 localDestination, float speed, UnityAction OnEnded, float waitTime) {
+    public void CallAnimation(RectTransform animatedTrans, Vector2 localDestination, float speed, UnityAction OnEnded = null, float waitTime = 0) {
         StartCoroutine(Animate(animatedTrans, localDestination, AnimationType.classicLerp, speed, OnEnded, waitTime));
     }
     private IEnumerator Animate (RectTransform animatedTrans, Vector2 localDestination, AnimationType animType, float speed, UnityAction OnEnded, float waitTime) {
